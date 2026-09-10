@@ -6,6 +6,17 @@
   const origin = new URL(document.baseURI).origin;
   let frame = null;
   const normalize = IT.helpers.normalize;
+  // Migrate existing phone-level opt-outs without replacing main-app exclusions.
+  try {
+    const marker = 'fbc-main-legacy-dnc-migrated-v23';
+    if (!localStorage.getItem(marker)) {
+      const legacy = JSON.parse(localStorage.getItem('fbc-texts-v1-exclusions') || '[]');
+      if (Array.isArray(legacy)) {
+        const valid = legacy.filter(n => typeof n === 'string' && normalize(n));
+        if (!valid.length || FU.setTextingExclusions([...FU.textingExclusions(), ...valid])) localStorage.setItem(marker, '1');
+      }
+    }
+  } catch { /* Preserve the existing main list if browser storage is unavailable. */ }
   function boot() {
     return {
       dataReady: true,
