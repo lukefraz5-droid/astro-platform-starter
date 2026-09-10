@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#101710"><title>FBC Main Database | Integrated Texting</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#101710;color:#f3f5ed;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;min-height:46px;border:1px solid #526044;border-radius:12px;background:#d4e95b;color:#182012;padding:12px 17px;font-weight:700}button.secondary{background:transparent;color:#e9eddc}button:focus-visible,input:focus-visible{outline:3px solid #dfed82;outline-offset:4px}.wrap{max-width:690px;margin:0 auto;padding:48px 24px}.brand{letter-spacing:.15em;font-size:12px;color:#d4e95b;font-weight:800}h1{font-size:clamp(32px,7vw,50px);letter-spacing:-.045em;line-height:1.08;margin:22px 0}p{line-height:1.65;color:#c2cab8}strong{color:#f2f5e9}.panel{background:#1b241a;border:1px solid #3b4835;border-radius:18px;padding:24px;margin-top:27px}.label{display:block;font-weight:700;margin-bottom:12px}input[type=file]{display:block;width:100%;font-size:14px;border:1px solid #617151;padding:12px;border-radius:10px}input::file-selector-button{font:inherit;margin-right:10px;border:0;padding:9px 10px;border-radius:6px;background:#d4e95b}.small{font-size:12px;color:#a8b69d;line-height:1.65}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}#status{white-space:pre-wrap;color:#e4edcc}#app-shell{position:fixed;inset:0;display:flex;flex-direction:column;background:#101710}.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 12px;border-bottom:1px solid #35412f;flex-shrink:0}.topbar strong{font-size:12px}.topbar small{display:block;font-size:10px;color:#9eab92}.topbar button{font-size:11px;min-height:35px;padding:8px 10px;border-radius:8px}#app{display:block;width:100%;flex:1;border:0;min-height:0}[hidden]{display:none!important}a{color:#d4e95b}@media(max-width:500px){.wrap{padding:32px 20px}.panel{padding:20px}h1{font-size:37px}.topbar{padding:6px 8px}.topbar button{font-size:10px;padding:8px}.topbar strong{font-size:11px}}
+</style></head><body>
+<main class="wrap" id="launcher"><div class="brand">FRIGA BASKETBALL CLUB</div><h1>Your main database.<br>Texting built in.</h1><p>Open your saved FBC Command Center file once. Your players, rosters, training, deposits, follow-ups, and the new texting screen stay together in the same workspace.</p>
+<section class="panel"><label class="label" for="file">Choose your FBC main database HTML file</label><input id="file" type="file" accept=".html,.htm,text/html"><p class="small">Choose the FBC Command Center file from this chat, such as <strong>fbc-command-center-v2.2-iphone-texting.html</strong>. Use only a file you trust: the dashboard's code runs on your device.</p><p class="small">The file is opened here, <strong>not uploaded to a public server</strong>. This browser will try to remember it for next time. Personal records are not included in the public code repository.</p><p id="status" role="status">Loading your saved workspace...</p><div class="actions"><button id="resume" hidden>Return to open database</button></div></section>
+<p class="small"><strong>Keep your latest edits:</strong> in your older working dashboard, use Operations HQ &gt; Back up JSON before switching. After opening the file here, use Restore JSON to bring those edits over. Work saved on a different site or device does not move automatically.</p><p class="small">Open this page in Safari on your iPhone for texting. Your phone performs each send. Batch sending still needs the installed and tested <strong>FBC Individual Texts</strong> Shortcut. No messages are sent just by loading a file.</p></main>
+<section id="app-shell" hidden><div class="topbar"><div><strong>FBC MAIN DATABASE</strong><small>Browser-local records</small></div><div><button id="backup" class="secondary">Back up JSON</button> <button id="change" class="secondary">Change file</button></div></div><iframe id="app" title="FBC main database with integrated texting" allow="clipboard-write"></iframe></section>
+<script>
+(() => {
+'use strict';
+const $=s=>document.querySelector(s), dbName='fbc-main-private-workspace-v23';let database=null,active=false;
+function status(t){$('#status').textContent=t;}
+function openStore(){return new Promise((resolve,reject)=>{const r=indexedDB.open(dbName,1);r.onupgradeneeded=()=>r.result.createObjectStore('files');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.onblocked=()=>reject(new Error('Storage is blocked in this browser.'));});}
+function readSaved(){return new Promise((resolve,reject)=>{const tx=database.transaction('files','readonly'),r=tx.objectStore('files').get('main');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function saveFile(value){return new Promise((resolve,reject)=>{const tx=database.transaction('files','readwrite');tx.objectStore('files').put(value,'main');tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});}
+function prepare(source){
+ if(typeof source!=='string'||source.length>20000000)throw new Error('Choose an FBC HTML file under 20 MB.');
+ const match=source.match(/window\.FBC\s*=\s*(\{[\s\S]*?\});\s*<\/script>/);
+ if(!match)throw new Error('This is not a supported FBC Command Center HTML file. A JSON backup is restored inside the main app after it opens.');
+ const data=JSON.parse(match[1]);if(!Array.isArray(data.players)||!data.players.length||!source.includes('const IT = (() =>'))throw new Error('This file does not include the supported main database and texting module. Choose the v2.2 FBC file provided in this chat.');
+ let html=source;
+ if(!html.includes('textingExclusions:()=>')){
+  const changes=[
+   ["return {version: 1, savedAt: '', settings: {...DEFAULTS}, records: {}};", "return {version: 1, savedAt: '', settings: {...DEFAULTS}, records: {}, textingExclusions: []};"],
+   ['out.savedAt = str(input.savedAt, 40);','out.savedAt = str(input.savedAt, 40); out.textingExclusions = [...new Set((Array.isArray(input.textingExclusions)?input.textingExclusions:[]).filter(validPhone).map(normalPhone))].slice(0,2000);'],
+   ['render, refresh, key:KEY, backup:()=>clone(model), validate,','render, refresh, key:KEY, backup:()=>clone(model), validate, textingExclusions:()=>[...(model.textingExclusions||[])], setTextingExclusions:list=>{model.textingExclusions=[...new Set(list.filter(validPhone).map(normalPhone))].slice(0,2000);return persist();},'],
+   ['const blocked=new Set();\n    P.filter(FU.helpers.isStopped)','const blocked=new Set(FU.textingExclusions().map(normalize).filter(Boolean));\n    P.filter(FU.helpers.isStopped)']
+  ];
+  for(const [from,to] of changes){if(!html.includes(from))throw new Error('This FBC file has a different structure. Keep your original unchanged and use the v2.2 file from this chat.');html=html.replace(from,to);}
+ }
+ html=html.replace(/<base\b[^>]*>/gi,'');
+ html=html.replace(/<head>/i,'<head><base href="'+location.origin+'/">');
+ const initial=new URLSearchParams(location.search).get('view')||'overview';
+ const setting='window.FBC_INITIAL_VIEW='+JSON.stringify(initial).replace(/</g,'\\u003c')+';';
+ const close='</'+'script>';
+ html=html.replace(/<\/body>/i,'<script>'+setting+close+'<script src="'+location.origin+'/fbc-main-bridge.js">'+close+'</body>');
+ return {html,count:data.players.length};
+}
+function display(source){const result=prepare(source);$('#app').srcdoc=result.html;active=true;$('#app-shell').hidden=false;$('#launcher').hidden=true;$('#resume').hidden=false;return result.count;}
+$('#file').addEventListener('change',async event=>{
+ const file=event.target.files[0];if(!file)return;
+ if(file.size>20000000){status('Choose an FBC HTML file under 20 MB.');return;}
+ try{
+  status('Checking your main database file...');const source=await file.text();const check=prepare(source);
+  if(!confirm('Open '+check.count+' player records from this trusted FBC file? Your browser edits are preserved. No texts will be sent.'))return;
+  let saved=false;try{if(!database)database=await openStore();await saveFile({source,name:file.name,at:new Date().toISOString()});saved=true;}catch{}
+  display(source);status(saved?'Main database file remembered in this browser.':'Opened for this session, but the browser could not remember the file. Keep your original and JSON backups.');
+  if(!saved)alert('The database opened, but this browser could not remember its file. Keep the original file and back up your edits.');
+ }catch(error){status(error instanceof Error?error.message:'The file could not be opened. Your existing files and browser records were not changed.');}
+});
+$('#change').onclick=()=>{if(!confirm('Back up your current edits before switching files. Show the file chooser?'))return;$('#app-shell').hidden=true;$('#launcher').hidden=false;};
+$('#resume').onclick=()=>{if(active){$('#app-shell').hidden=false;$('#launcher').hidden=true;}};
+$('#backup').onclick=()=>{try{const fn=$('#app').contentWindow.exportBackup;if(typeof fn!=='function')throw new Error();fn();}catch{alert('Open Operations HQ inside the database and choose Back up JSON.');}};
+(async()=>{try{database=await openStore();const saved=await readSaved();if(saved&&typeof saved.source==='string'){display(saved.source);status('Your saved main database is open.');}else status('Select your FBC main database file to start.');}catch{status('Select your FBC file to start. Browser storage may be unavailable; keep your original file and backups.');}})();
+})();
+</script></body></html>
