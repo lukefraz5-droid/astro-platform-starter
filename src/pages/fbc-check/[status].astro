@@ -1,0 +1,7 @@
+---
+import { packageStatus } from '../fbc-package-status.json';
+export const prerender = true;
+export function getStaticPaths() { return [{params:{status:packageStatus()}}]; }
+const status = Astro.params.status;
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>FBC build verification</title></head><body><h1>FBC build verification</h1><p>{status}</p><p>No family data is included on this diagnostic page.</p></body></html>
