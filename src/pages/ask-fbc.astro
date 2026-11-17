@@ -162,7 +162,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
     const isInterest=/\b(interest|interested|lead|leads|form|inquiry|inquiries|prospect|prospects)\b/i.test(q);
     const isHistory=/\b(historical|history|old|september|sep\b|tryout|prior|previous|team board|2025|frazierhoops|last year)\b/i.test(q);
     const isReturning=/\b(returning|return|former|2025|last year|frazierhoops)\b/i.test(q);
-    const noSignup=/\b(haven't|hasn't|not|missing|no|without|unconverted|unregistered|unmatched|still need|didn't)\b/i.test(q)&&/\b(sign|register|signup|membership|deposit|converted|match|enroll|gymdesk|november|export)\b/i.test(q);
+    const noSignup=/\b(haven't|hasn't|doesn't|didn't|not|missing|no|without|unconverted|unregistered|unmatched|still needs?)\b/i.test(q)&&/\b(sign(?:ed|ing)?(?:\s+up)?|signup|register(?:ed|ing)?|registration|membership|deposit|converted|match(?:ed)?|enroll(?:ed|ment)?|gymdesk|november|export)\b/i.test(q);
     const contactQuery=/\b(phone|phones|numbers?|contacts?|parents?|guardians?|text|sms|message)\b/i.test(q);
     const countQuery=/\b(how many|count|total|breakdown|by grade|stats|statistics|numbers by|distribution|overview)\b/i.test(q);
     const duplicateQuery=/\b(duplicate|duplicates|double entry|data issues|data review|missing phone|missing numbers|no numbers|data quality)\b/i.test(q);
