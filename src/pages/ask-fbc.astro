@@ -1,0 +1,308 @@
+---
+export const prerender = true;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#071013"/>
+<meta name="robots" content="noindex,nofollow,noarchive"/>
+<meta name="referrer" content="no-referrer"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; form-action 'none'; base-uri 'none'"/>
+<title>ASK FBC — Private Intelligence</title>
+<style is:global>
+
+:root{--bg:#070e11;--panel:#10191c;--panel2:#142124;--line:#24363a;--text:#eefcf4;--muted:#90a6a5;--lime:#c5ff57;--limeDark:#8cd240;--amber:#ffaa61;--red:#ff8479;--soft:#213033;--shadow:0 14px 44px #0005;color-scheme:dark;font-family:'DM Sans',system-ui,-apple-system,Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}body{background:radial-gradient(ellipse 760px 550px at 47% -12%,#183c3469,transparent 75%),radial-gradient(ellipse 650px 550px at 100% 63%,#15313a46,transparent 75%),var(--bg);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#b6ff6d08 1px,transparent 1px),linear-gradient(90deg,#b6ff6d08 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,#0007,#0000);z-index:0}
+button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--lime);outline-offset:3px}button:disabled{opacity:.45;cursor:not-allowed}a{color:inherit;text-decoration:none}
+.app{position:relative;z-index:1;max-width:1780px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}
+.header{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:0 34px;gap:15px;background:#07101394;backdrop-filter:blur(20px);position:sticky;top:0;z-index:20}
+.identity{display:flex;align-items:center;gap:13px;min-width:0}.emblem{width:49px;height:49px;background:var(--lime);color:#071013;display:grid;place-items:center;border-radius:14px;font-weight:1000;font-size:21px;letter-spacing:-.12em;transform:skew(-5deg);box-shadow:0 0 32px #baff4938}.brandname{font-size:17px;letter-spacing:.11em;font-weight:800}.brandsub{color:var(--muted);font-size:10px;letter-spacing:.22em;margin-top:3px;text-transform:uppercase}.headerRight{display:flex;align-items:center;gap:10px;min-width:0}.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#122124;border-radius:999px;padding:9px 13px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.08em;white-space:nowrap}.pulse{height:7px;width:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 0 3px #c5ff571e,0 0 14px #c5ff57a8}.headerBtn{border:1px solid var(--line);background:transparent;color:var(--text);padding:10px 13px;border-radius:11px;font-size:12px;font-weight:700}
+.columns{display:grid;grid-template-columns:260px minmax(0,1fr) 295px;flex:1;min-height:calc(100dvh - 82px)}.sidebar{border-right:1px solid var(--line);padding:28px 18px 20px;display:flex;flex-direction:column;gap:24px}.sideLabel{font-size:10px;letter-spacing:.19em;color:#6f8b89;font-weight:800;text-transform:uppercase;margin:0 10px 13px}.sideNav{display:flex;flex-direction:column;gap:5px}.sideButton{display:flex;gap:12px;align-items:center;width:100%;border:0;text-align:left;background:transparent;color:var(--muted);padding:13px 14px;border-radius:11px;font-size:13px;font-weight:650;transition:background .2s,color .2s}.sideButton:hover{background:#172a2a;color:var(--text)}.sideButton.active{background:#21382c;color:var(--lime);box-shadow:inset 3px 0 var(--lime)}.sideButton b{font-weight:800;font-size:16px;opacity:.8}.sidebarFoot{margin-top:auto;border:1px solid #314642;background:#122522;border-radius:16px;padding:17px}.sidebarFoot .svgicon{color:var(--lime);font-size:22px}.sidebarFoot strong{display:block;margin:11px 0 7px;font-size:13px}.sidebarFoot p{font-size:11px;color:var(--muted);line-height:1.55;margin:0}.smallLink{background:none;border:none;color:var(--lime);font-size:12px;padding:8px 0;text-align:left;font-weight:700}
+.center{min-width:0;display:flex;flex-direction:column;max-height:calc(100dvh - 82px)}.stage{padding:27px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:14px}.eyebrow{font-size:10px;letter-spacing:.22em;font-weight:800;color:var(--lime)}.stageTitle{font-size:24px;font-weight:700;letter-spacing:-.05em;font-family:'Space Grotesk',sans-serif;margin:6px 0 0}.stageMeta{color:#7d9c97;font-size:11px}.chat{flex:1;overflow-y:auto;min-height:0;padding:14px 32px 25px;scroll-behavior:smooth}.chat::-webkit-scrollbar{width:7px}.chat::-webkit-scrollbar-thumb{background:#314b49;border-radius:20px}.welcome{padding:26px 0 12px;max-width:720px}.orb{width:76px;height:76px;border-radius:25px;display:grid;place-items:center;color:var(--lime);font-size:30px;font-weight:700;background:radial-gradient(circle at 32% 28%,#274b40,#142e2e 65%,#0d1719);border:1px solid #3b5e54;box-shadow:0 0 0 8px #c5ff5706,0 0 80px #8cdf6341;transform:rotate(-6deg)}.orb span{transform:rotate(6deg)}.hello{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4vw,49px);letter-spacing:-.064em;line-height:1.13;font-weight:700;margin:30px 0 14px}.hello em{color:var(--lime);font-style:normal}.lede{color:var(--muted);max-width:595px;line-height:1.67;font-size:15px}.promptGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:27px}.prompt{background:linear-gradient(120deg,#152327,#0f191b);border:1px solid #2a3d41;color:#e3eee7;text-align:left;padding:16px 17px;border-radius:14px;min-height:85px;transition:transform .15s,border-color .15s;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:12px;font-weight:650;font-size:12px;line-height:1.45}.prompt:hover{border-color:#9ddd59;transform:translateY(-2px)}.prompt .symbol{font-size:20px;color:var(--lime);line-height:1}.welcomeFoot{font-size:10px;color:#6f8985;line-height:1.5;margin-top:21px}
+.message{max-width:960px;margin:18px 0}.message.user{display:flex;justify-content:flex-end}.bubble{max-width:85%;border-radius:16px;padding:13px 17px;font-size:13px;line-height:1.6;background:linear-gradient(120deg,#294336,#263b32);border:1px solid #4e644d;color:#f2ffe6;box-shadow:var(--shadow)}.answer{padding:0 0 12px;animation:rise .22s ease-out}@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}.answerTag{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:var(--lime);font-size:10px;font-weight:850;letter-spacing:.18em;text-transform:uppercase}.answerTag .miniGlow{height:7px;width:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px #b7fb6c}.answerTitle{font-size:24px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.045em;font-weight:700;margin:0 0 9px;line-height:1.25}.answerBody{color:#b8cac5;line-height:1.7;font-size:13px;margin:0 0 13px}.answerNote{font-size:11px;line-height:1.6;color:#a1aead;border-left:2px solid #baff64;padding:6px 0 6px 11px;margin:14px 0}.answerActions{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 16px}.action{border:1px solid #34504b;background:#1b2a2b;color:#e9f8e8;border-radius:9px;padding:8px 11px;font-size:11px;font-weight:750}.action:hover{border-color:var(--lime)}.action.accent{background:#c3ff5b;color:#132010;border-color:#c3ff5b}.dataSection{margin-top:19px;border:1px solid #243e3c;border-radius:15px;overflow:hidden;background:#0e191a}.dataHead{background:#142324;padding:14px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px}.dataHead strong{font-size:13px}.dataHead small{font-size:10px;color:#9bb0ae}.listWrap{max-height:430px;overflow:auto}.dataRow{border-top:1px solid #213234;padding:13px 17px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.dataRow:first-child{border-top:0}.rowName{font-size:13px;font-weight:700;line-height:1.45}.rowMeta{color:#8eaaa5;font-size:10px;line-height:1.5;margin-top:4px}.rowRemark{color:#d4e5de;font-size:11px;margin-top:5px}.rowRight{display:flex;align-items:flex-end;flex-direction:column;gap:6px;flex-shrink:0}.badge{border:1px solid #40564b;border-radius:6px;padding:4px 7px;color:var(--lime);font-size:10px;font-weight:700;white-space:nowrap}.badge.amber{color:var(--amber);border-color:#5e4438}.badge.blue{color:#91d3e6;border-color:#38565c}.phoneRow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px}.phone{text-decoration:none;color:#bbfa72;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}.microBtn{font-size:10px;border:1px solid #40544d;background:#1a2b29;color:#e5f1e7;border-radius:7px;padding:5px 8px;white-space:nowrap}.microBtn:hover{border-color:var(--lime)}.moreButton{width:100%;padding:12px;color:var(--lime);font-weight:700;background:#132322;border:0;border-top:1px solid #294340;font-size:12px}
+.composer{padding:12px 32px 22px;background:linear-gradient(0deg,#070f12 52%,#070f1200);position:relative;z-index:2}.composerShell{display:flex;gap:9px;align-items:flex-end;min-height:68px;border:1px solid #52705b;background:#142326;border-radius:16px;padding:9px 11px 9px 15px;box-shadow:0 0 0 4px #baff5a07,0 18px 50px #0005}.composerShell:focus-within{border-color:#baff62;box-shadow:0 0 0 4px #baff5a18}.composer textarea{resize:none;min-height:40px;max-height:150px;flex:1;width:100%;padding:8px 0;line-height:1.5;background:transparent;border:0;outline:0;color:#f0fff4;font-size:14px}.composer textarea::placeholder{color:#7d9391}.sendButton{height:45px;min-width:45px;border:0;border-radius:11px;background:var(--lime);color:#0c1b0b;font-size:22px;font-weight:800}.micButton{height:45px;min-width:42px;border:1px solid #344c4b;border-radius:11px;background:#1a3030;color:var(--lime);font-size:19px}.micButton.listening{background:#5c322c;color:#ffc3ad;animation:bleep .8s infinite alternate}@keyframes bleep{from{box-shadow:0 0 5px #e36e6e}to{box-shadow:0 0 22px #ec6666aa}}.hint{display:flex;gap:8px;justify-content:space-between;color:#728a88;font-size:10px;padding:11px 4px 0}
+.insights{border-left:1px solid var(--line);padding:27px 20px;display:flex;flex-direction:column;gap:17px}.insightsHeader{font-size:10px;letter-spacing:.21em;font-weight:800;color:#8ca8a1}.insight{border:1px solid #2b3e40;background:linear-gradient(140deg,#142328,#0b1719);border-radius:15px;padding:16px 17px}.insight .tag{font-size:10px;color:#90a79f;letter-spacing:.11em;font-weight:700}.insight .value{font-family:'Space Grotesk',sans-serif;font-size:37px;font-weight:700;letter-spacing:-.07em;margin:5px 0;color:#f2fff3}.insight .value small{font-size:12px;color:#a8c59a;letter-spacing:0;font-weight:500}.insight .detail{font-size:11px;color:#8aa29e;line-height:1.5}.insight.alert{background:linear-gradient(145deg,#233022,#131a18);border-color:#4a6045}.insight.alert .value{color:var(--lime)}.infoBlock{font-size:11px;color:#99a9a5;line-height:1.65}.infoBlock strong{color:#e4eee7}.sourceTime{color:var(--lime);font-weight:700}.insightFooter{margin-top:auto;padding:15px;border:1px dashed #3e554c;border-radius:13px;color:#93a9a3;font-size:11px;line-height:1.5}.insightFooter b{display:block;color:#c9e6c6;margin-bottom:7px}
+.overlay{position:fixed;inset:0;z-index:100;background:#050c0deF;backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:20px}.unlock{max-width:500px;width:100%;padding:35px;border:1px solid #46634e;background:linear-gradient(135deg,#172925,#0b171a);border-radius:25px;box-shadow:0 20px 120px #000d,0 0 70px #b4ff3c16}.lockIcon{display:grid;place-items:center;width:59px;height:59px;border-radius:16px;color:var(--lime);font-size:27px;background:#293d2c;border:1px solid #668057}.unlock h1{font-family:'Space Grotesk',sans-serif;font-size:34px;letter-spacing:-.06em;margin:18px 0 8px}.unlock p{color:#9db0a6;font-size:13px;line-height:1.65}.keylabel{display:block;font-size:11px;color:#d2e4d7;font-weight:750;margin:24px 0 8px}.keyfield{border:1px solid #4b655d;background:#0c1a1b;color:#eaffdc;padding:13px;border-radius:10px;width:100%;font-family:monospace;font-size:12px;letter-spacing:.02em}.unlockButton{background:var(--lime);color:#08170d;border:0;border-radius:11px;font-weight:850;width:100%;padding:15px;margin-top:12px}.unlockError{font-size:12px;color:#ffb3a3;min-height:16px;margin-top:10px;line-height:1.45}.unlockFoot{border-top:1px solid #345049;margin-top:22px;padding-top:17px;color:#93aba0;font-size:11px;line-height:1.6}.hidden{display:none!important}.toaster{position:fixed;z-index:130;bottom:110px;left:50%;transform:translateX(-50%);background:#d0ff8d;color:#082012;padding:11px 18px;border-radius:30px;font-size:12px;font-weight:700;box-shadow:0 10px 30px #0008;max-width:85vw;text-align:center}
+@media(max-width:1280px){.columns{grid-template-columns:218px minmax(0,1fr) 250px}.header{padding:0 25px}.sidebar{padding:26px 13px}.insights{padding:25px 14px}.chat{padding:12px 23px 22px}.stage{padding:22px 23px 0}.composer{padding:12px 23px 20px}}
+@media(max-width:1070px){.columns{grid-template-columns:210px minmax(0,1fr)}.insights{display:none}.center{max-height:calc(100dvh - 82px)}.header{padding:0 22px}}
+@media(max-width:700px){.header{height:67px;padding:0 16px}.emblem{width:41px;height:41px;border-radius:12px;font-size:18px}.brandname{font-size:13px}.brandsub{font-size:8px;letter-spacing:.1em}.headerRight .pill{display:none}.headerBtn{padding:8px 10px;font-size:11px}.columns{display:block;min-height:calc(100dvh - 67px)}.sidebar{display:none}.center{height:calc(100dvh - 67px);max-height:none}.stage{padding:21px 18px 4px}.stageTitle{font-size:20px}.stageMeta{font-size:10px}.chat{padding:10px 18px 18px}.welcome{padding-top:17px}.orb{width:65px;height:65px;font-size:27px;border-radius:20px}.hello{font-size:35px;margin:23px 0 10px}.lede{font-size:13px}.promptGrid{gap:8px;margin-top:24px}.prompt{padding:12px;min-height:96px;font-size:11px}.composer{padding:8px 13px max(13px,env(safe-area-inset-bottom))}.composerShell{min-height:61px;border-radius:14px;padding:7px 8px 7px 12px}.composer textarea{font-size:16px}.sendButton,.micButton{height:43px;min-width:40px}.hint{padding-top:7px}.answerTitle{font-size:21px}.bubble{max-width:92%}.rowRight{max-width:40%}.phoneRow{gap:5px}.dataRow{padding:12px}.unlock{padding:25px}.unlock h1{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header">
+  <div class="identity"><div class="emblem">FBC</div><div><div class="brandname">ASK FBC<span style="color:var(--lime)">.</span></div><div class="brandsub">Private Basketball Intelligence</div></div></div>
+  <div class="headerRight"><div class="pill"><span class="pulse"></span> SECURE · LOCAL SEARCH</div><button class="headerBtn" id="aboutBtn" type="button">DATA SOURCES</button><button class="headerBtn" id="lockBtn" type="button" title="Lock the private player data">LOCK ⟲</button></div>
+</header>
+<div class="columns">
+  <aside class="sidebar">
+    <div><div class="sideLabel">COMMAND CENTER</div><nav class="sideNav">
+    <button class="sideButton active" data-q="Show my AAU numbers" type="button"><b>⌘</b> Ask FBC</button>
+    <button class="sideButton" data-q="Show all GymDesk memberships by grade" type="button"><b>▤</b> Member Database</button>
+    <button class="sideButton" data-q="Who showed interest but has no November membership match?" type="button"><b>◎</b> Interest Leads</button>
+    <button class="sideButton" data-q="Show historical players missing in the new GymDesk export" type="button"><b>◫</b> Missing Signups</button>
+    <button class="sideButton" data-q="Show returning players from last year" type="button"><b>↗</b> Returning Players</button>
+    <button class="sideButton" data-q="Show outreach drafts" type="button"><b>✉</b> Parent Outreach</button>
+    <button class="sideButton" data-q="Show possible duplicates" type="button"><b>⌁</b> Data Review</button>
+    </nav></div>
+    <div class="sidebarFoot"><div class="svgicon">◉</div><strong>YOUR REAL DATA. ZERO GUESSWORK.</strong><p>All searches happen in this browser using your encrypted FBC snapshots. Nothing is automatically sent to families.</p><button class="smallLink" data-q="What information do you have on file?" type="button">View data coverage →</button></div>
+  </aside>
+  <main class="center">
+    <div class="stage"><div><div class="eyebrow">THE DATA KNOWS.</div><h2 class="stageTitle">Your basketball universe, one question away.</h2></div><div class="stageMeta" id="dateBadge">SNAPSHOT · NOV 16, 2026</div></div>
+    <div id="chat" class="chat" role="log" aria-live="polite" aria-label="Ask FBC conversation">
+      <div class="welcome" id="welcome">
+        <div class="orb"><span>✳</span></div>
+        <h1 class="hello">Ask me <em>anything</em><br/>about your players.</h1>
+        <p class="lede">Grades. Memberships. Tryout history. Parent contacts. Players who still need a follow-up. Your information is already here — just ask a question or use the microphone.</p>
+        <div class="promptGrid">
+          <button class="prompt" type="button" data-q="Show all my 9th graders and their parent contacts"><span class="symbol">↗</span><span>“Show me all my 9th graders and their contacts.”</span></button>
+          <button class="prompt" type="button" data-q="Who hasn't signed up yet?"><span class="symbol">⊗</span><span>“Who hasn’t signed up yet?”</span></button>
+          <button class="prompt" type="button" data-q="Give me a grade-by-grade breakdown"><span class="symbol">▥</span><span>“Give me a grade-by-grade breakdown.”</span></button>
+          <button class="prompt" type="button" data-q="Who were my returning Frazierhoops players?"><span class="symbol">⌁</span><span>“Who were my returning Frazierhoops players?”</span></button>
+        </div><div class="welcomeFoot">FBC MEMBER EXPORT + AAU INTEREST + HISTORIC 2026 MASTER + RETURNING ROSTERS · PRIVATE VIEW</div>
+      </div>
+    </div>
+    <form class="composer" id="askForm" autocomplete="off"><div class="composerShell"><textarea id="question" rows="1" placeholder="Ask about players, signups, grades, numbers..." aria-label="Ask FBC a question" maxlength="500" spellcheck="true"></textarea><button class="micButton" id="voiceBtn" type="button" title="Ask using your voice" aria-label="Use microphone">♩</button><button class="sendButton" type="submit" title="Ask FBC" aria-label="Send question">➜</button></div><div class="hint"><span>REAL RECORDS · SOURCE-BASED ANSWERS</span><span id="voiceState">VOICE IF SUPPORTED</span></div></form>
+  </main>
+  <aside class="insights">
+    <div class="insightsHeader">LIVE IN YOUR DATA CORE</div>
+    <div class="insight alert"><div class="tag">GYMDESK · MEMBERSHIP-LISTED</div><div class="value" id="memberCount">—</div><div class="detail">November records · not verified paid spots</div></div>
+    <div class="insight"><div class="tag">AAU INTEREST RESPONSES</div><div class="value" id="leadCount">—</div><div class="detail">Individual form submissions</div></div>
+    <div class="insight"><div class="tag">HISTORICAL MASTER</div><div class="value" id="historyCount">—</div><div class="detail">Sep 2026 player records from tryouts and team boards</div></div>
+    <div class="insight"><div class="tag">INTEREST · NO NAME MATCH</div><div class="value" id="missingCount">—</div><div class="detail">Unique names not matched to November membership export</div></div>
+    <div class="infoBlock"><strong>INTELLIGENCE SOURCES</strong><p>Recent GymDesk memberships and interest entries, older FBC master data, returning-player contacts, and draft outreach. Each answer preserves its source.</p><p>LAST SNAPSHOT<br/><span class="sourceTime">NOVEMBER 16, 2026</span></p></div>
+    <div class="insightFooter"><b>◎ PRIVATE BY DESIGN</b>Data is encrypted in the repository, unlocked only on your device. Not synchronized live with GymDesk or Google Forms.</div>
+  </aside>
+</div></div>
+<div class="overlay" id="locked"><section class="unlock" aria-label="Unlock your FBC data"><div class="lockIcon">◈</div><h1>Unlock FBC Intelligence.</h1><p>Player and parent records are encrypted. Open your private unlock link once to connect all the records we already have, or enter the secure unlock key below.</p><label class="keylabel" for="keyInput">PRIVATE UNLOCK KEY</label><input id="keyInput" class="keyfield" type="password" inputmode="text" placeholder="Paste your private key here" autocomplete="off"/><button id="unlockBtn" class="unlockButton" type="button">ACCESS DATA CORE →</button><div class="unlockError" id="unlockError" role="alert"></div><div class="unlockFoot">Your unlock key is never sent to the website or any AI service. Decryption and questions run on your device. The site is also protected by your Netlify login.</div></section></div>
+<div class="toaster hidden" role="status" id="toast"></div>
+<script is:inline>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const nrm = (v) => String(v||'').normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
+  const readable = (p) => p.replace(/(\d{3})(\d{3})(\d{4})/,'($1) $2-$3');
+  const txt = (v) => String(v??'').trim();
+  let DB = null, currentResults = null, recognize = null, busy = false;
+  let inbox = null;
+  function toast(message) { const el=$('#toast');el.textContent=message;el.classList.remove('hidden');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.add('hidden'),2500); }
+  async function copy(value) { try { await navigator.clipboard.writeText(value);toast('Copied to clipboard'); } catch {toast('Copy not available in this browser');} }
+  function kmask(k) {return /^[0-9a-f]{64}$/i.test(k.trim()) ? k.trim() : null;}
+  function hexBytes(hex) { return Uint8Array.from((hex.match(/.{2}/g)||[]).map(s=>parseInt(s,16))); }
+  function b64Bytes(s) {return Uint8Array.from(atob(s), c=>c.charCodeAt(0));}
+  async function openIDB() {return await new Promise((res,rej)=>{const req=indexedDB.open('fbc-intelligence-v3',1);req.onupgradeneeded=()=>req.result.createObjectStore('keys');req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error);});}
+  async function getSavedKey() {try{const db=await openIDB();return await new Promise((res,rej)=>{const t=db.transaction('keys','readonly'),r=t.objectStore('keys').get('crypto');r.onsuccess=()=>res(r.result||null);r.onerror=()=>rej(r.error);t.oncomplete=()=>db.close();});}catch{return null;}}
+  async function saveKey(k) {try{const db=await openIDB();await new Promise((res,rej)=>{const t=db.transaction('keys','readwrite');t.objectStore('keys').put(k,'crypto');t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});db.close();}catch{toast('Unlocked for this session. Reopen your secure link to unlock again.');}}
+  async function clearKey() {try{const db=await openIDB();await new Promise((res,rej)=>{const t=db.transaction('keys','readwrite');t.objectStore('keys').delete('crypto');t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});db.close();}catch{}}
+  async function decrypt(key) {
+    let response=await fetch('/fbc-snapshot.enc.json',{cache:'no-store',credentials:'same-origin'});
+    if(!response.ok) throw Error('The encrypted data file could not be loaded.');
+    const src=await response.json();
+    const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64Bytes(src.nonce)},key,b64Bytes(src.ciphertext));
+    if(!('DecompressionStream' in window)) throw Error('This browser cannot unpack the data. Please use updated Safari or Chrome.');
+    const ds=new DecompressionStream('gzip');
+    const data=await new Response(new Blob([bytes]).stream().pipeThrough(ds)).arrayBuffer();
+    const obj=JSON.parse(new TextDecoder().decode(data));
+    if(!obj || !Array.isArray(obj.members) || !Array.isArray(obj.interest) || !Array.isArray(obj.historical) || obj.version!==3)throw Error('Unsupported FBC data version.');
+    return obj;
+  }
+  async function unlock(k,raw) {
+    if(busy)return;busy=true;$('#unlockError').textContent='';$('#unlockBtn').disabled=true;$('#unlockBtn').textContent='UNLOCKING DATA...';
+    try{
+      const key=k || await crypto.subtle.importKey('raw',hexBytes(raw),'AES-GCM',false,['decrypt']);
+      const result=await decrypt(key);
+      DB=result;$('#locked').classList.add('hidden');await saveKey(key);boot();
+    }catch(e){$('#unlockError').textContent=raw?'The key could not decrypt this data. Please use the secure link provided in ChatGPT.':(e.message||'Unable to unlock private data.');}
+    finally{busy=false;$('#unlockBtn').disabled=false;$('#unlockBtn').textContent='ACCESS DATA CORE →';$('#keyInput').value='';}
+  }
+  function unlockFromField(){const s=kmask($('#keyInput').value);if(!s){$('#unlockError').textContent='The private key must be 64 hexadecimal characters.';return;}unlock(null,s);}
+  function boot(){
+    const mn=new Set(DB.members.map(x=>nrm(x.name)));
+    $('#memberCount').textContent=DB.members.length;
+    $('#leadCount').textContent=DB.interest.length;
+    $('#historyCount').textContent=DB.historical.length;
+    $('#missingCount').textContent=new Set(DB.interest.filter(x=>!x.membershipNameMatch).map(x=>nrm(x.name))).size;
+    $('#voiceState').textContent= ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) ? 'VOICE READY':'VOICE NOT SUPPORTED';
+    $('#question').focus();
+  }
+  function targetGrade(query) {
+    const q=query.toLowerCase();let m;
+    m=q.match(/\b(1[0-2]|[3-9])(?:st|nd|rd|th)?\s*(?:graders?|grade)\b/) || q.match(/\b(?:grade|graders?)\s*(1[0-2]|[3-9])\b/);
+    if(m)return Number(m[1]);
+    m=q.match(/\b(1[0-2]|[3-9])(?:st|nd|rd|th)\b/);if(m)return Number(m[1]);
+    const age=q.match(/\b(14|15|16|17|18)\s*u\b/);if(age)return Number(age[1])-6;
+    const words={third:3,fourth:4,fifth:5,sixth:6,seventh:7,eighth:8,ninth:9,tenth:10,eleventh:11,twelfth:12};
+    for(let [word,g] of Object.entries(words)) if(new RegExp('\\b'+word+'\\b').test(q))return g;
+    return null;
+  }
+  function regionFrom(q){return /\b(pitt|pittsburgh|pgh)\b/i.test(q)?'Pittsburgh':(/\b(cle|cleveland)\b/i.test(q)?'Cleveland':null);}
+  function gName(g){return g===null||g===undefined?'Grade unknown':String(g)+(g===11?'th':g===12?'th':g===13?'th':g%10===1?'st':g%10===2?'nd':g%10===3?'rd':'th')+' grade';}
+  function countBy(rows,field){const c={};for(const v of rows){const k=v[field]??'Unknown';c[k]=(c[k]||0)+1;}return Object.entries(c).sort((a,b)=>Number(a[0])-Number(b[0]));}
+  function knownMembers(){return DB.members.filter(m=>m.isMembershipListed);}
+  function onlyGradeRegion(rows,grade,region){return rows.filter(p=>(grade==null||p.grade===grade)&&(!region||p.region===region));}
+  function uniqueName(rows){const seen=new Set();return rows.filter(x=>{const n=nrm(x.name);if(seen.has(n))return false;seen.add(n);return true;});}
+  function membershipNameSet(){return new Set(DB.members.map(m=>nrm(m.name)));}
+  function leadToCard(r){return {name:r.name,grade:r.grade,region:r.region,source:'Interest form · row '+r.sourceRow,phone:r.parentPhone,phoneType:'Contact entered in interest form',secondary:r.school?'School: '+r.school:'',status:r.membershipNameMatch?'Matched by name':'No November name match',badge:r.membershipNameMatch?'blue':'amber',draft:lookupDraft(r.name,r.parentPhone),parentName:''};}
+  function lookupDraft(name,phone){const n=nrm(name);const hit=(DB.outreachDrafts||[]).find(d=>nrm(d.name)===n);return hit?.message||'';}
+  function memberToCard(r){const guardian=(r.parentContacts||[]).find(x=>x.phone&&/parent|guardian/i.test(x.relationship));const needsReview=r.needsAthleteNameReview;return {name:r.name,grade:r.grade,region:r.region,source:'GymDesk · row '+r.sourceRow,phone:guardian?.phone||'',otherPhone:r.memberPhone||'',phoneType:guardian?'Parent / guardian listed':'Member/account number — not verified as parent',secondary:r.membership||'',status:needsReview?'ATHLETE NAME NEEDS REVIEW':(r.isMembershipListed?'Membership label · deposit listed':'Non-AAU record'),badge:needsReview?'amber':'blue',parentName:guardian?.name||'',draft:''};}
+  function histToCard(r){const guardian=(r.contacts||[]).find(x=>x.phone&&x.verified&&/parent|guardian/i.test(x.relationship));const team=(r.placements||[]).map(p=>p.team).filter(Boolean).slice(0,2).join(' • ');return {name:r.name,grade:r.grade,region:undefined,source:'2026 master · '+r.id,phone:guardian?.phone||'',otherPhone:r.tryoutPhones?.[0]||'',phoneType:guardian?'Verified parent in historical master':'Tryout/account number — guardian not verified',secondary:team||((r.tryout?'Tryout record':'Historical player')+(r.registeredSep?' · Sep registration record':'')),status:r.registeredSep?'Registered in Sep snapshot':'Historical record',badge:r.registeredSep?'blue':'amber',parentName:guardian?.name||'',draft:'',issues:r.issues||[]};}
+  function returningToCard(r){return {name:r.name,grade:null,region:null,source:'2025 returning outreach',phone:r.phone,phoneType:r.phoneVerification||'Check contact',secondary:r.lastYearTeam,status:'Message draft · not marked sent',badge:'amber',parentName:r.contactName,draft:r.draft};}
+  function draftToCard(r){return {name:r.name,grade:r.grade,region:'Unspecified',source:'Outreach draft · row '+r.id.slice(1),phone:r.phone,phoneType:'Interest form contact',secondary:r.status||'Draft — not sent',status:'Draft only',badge:'amber',draft:r.message,parentName:''};}
+  function groupDataCards(rows,converter){return rows.map(converter);}
+  function answer(title,body,sections=[],note='',stats=[]){return {title,body,sections,note,stats};}
+  const nameStop=new Set(('what who where when why how is are was were do does did I we my me you your us for of and a an the on in from with to all show find get give tell list name names number numbers phone phones contact contacts parent parents grade graders student players player team teams registered signup signed sign up gymdesk roster deposit paid pay school info data details someone their status about any those ours last this year spring aau fbc friga basketball club please who has have need needs want whether can could which compared requested text send messages').split(' '));
+  function findMatches(q,results,max=25){const stripped=q.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,' ').replace(/[^a-z\d\- ]/g,' ').split(/\s+/).filter(w=>w&&w.length>=2&&!nameStop.has(w)&&!/^\d+(st|nd|rd|th|u)?$/.test(w));if(!stripped.length)return[];const scored=[];for(const item of results){const name=nrm(item.name);const full=nrm(stripped.join(' '));let score=0;if(full&&name.includes(full))score+=20;if(stripped.every(t=>name.includes(nrm(t))))score+=14;for(const t of stripped){if(name.includes(nrm(t)))score+=t.length>=4?5:2;}if(score>=5)scored.push([score,item]);}return scored.sort((a,b)=>b[0]-a[0]).slice(0,max).map(x=>x[1]);}
+  function answerQuery(query){
+    const q=query.toLowerCase().replace(/[’‘]/g,"'");
+    const g=targetGrade(q),r=regionFrom(q);
+    const isInterest=/\b(interest|interested|lead|leads|form|inquiry|inquiries|prospect|prospects)\b/i.test(q);
+    const isHistory=/\b(historical|history|old|september|sep\b|tryout|prior|previous|team board|2025|frazierhoops|last year)\b/i.test(q);
+    const isReturning=/\b(returning|return|former|2025|last year|frazierhoops)\b/i.test(q);
+    const noSignup=/\b(haven't|hasn't|not|missing|no|without|unconverted|unregistered|unmatched|still need|didn't)\b/i.test(q)&&/\b(sign|register|signup|membership|deposit|converted|match|enroll|gymdesk|november|export)\b/i.test(q);
+    const contactQuery=/\b(phone|phones|numbers?|contacts?|parents?|guardians?|text|sms|message)\b/i.test(q);
+    const countQuery=/\b(how many|count|total|breakdown|by grade|stats|statistics|numbers by|distribution|overview)\b/i.test(q);
+    const duplicateQuery=/\b(duplicate|duplicates|double entry|data issues|data review|missing phone|missing numbers|no numbers|data quality)\b/i.test(q);
+    const messagesQuery=/\b(drafts?|messages?|outreach|text templates)\b/i.test(q)&&!(/\b(contact|number)\b/i.test(q)&&g!==null);
+    const noSignupsMembers=DB.historical.filter(h=>!membershipNameSet().has(nrm(h.name)));
+    const leadUnmatched=uniqueName(DB.interest.filter(x=>!x.membershipNameMatch));
+    const historicalFiltered=DB.historical.filter(h=>g==null||h.grade===g);
+    const membersFiltered=onlyGradeRegion(knownMembers(),g,r);
+    const leadFiltered=leadUnmatched.filter(x=>g==null||x.grade===g);
+    const baseContext=(g!==null?gName(g):'all grades')+(r?' · '+r:'');
+    if(/\b(help|what can you|what information|sources|what data|coverage|how does this work)\b/i.test(q)){
+      return answer('Your complete FBC search hub','Ask for players, grades, parent numbers, membership lists, interest leads, historical tryouts, previous team boards, returning players, duplicates, or outreach messages.',[
+        {title:'Data available',cards:[],note:`${DB.members.length} GymDesk membership rows; ${DB.interest.length} interest forms; ${DB.historical.length} historical records; ${DB.returning.length} 2025 returning-player leads; ${DB.outreachDrafts.length} unsent outreach drafts.`}],
+      'You are looking at source snapshots, not an active live GymDesk/Jotform connection. Nothing here proves a payment unless explicitly verified.');
+    }
+    if(/\b(127|jersey number|tryout number|bib number)\b/.test(q)&&/\b(who|which|tryout|jersey)\b/.test(q))return answer('Tryout jersey numbers are not indexed','I can search named historical tryout records and team boards, but this snapshot does not have a verified jersey-number lookup. I will not guess the athlete.','', 'Ask for a player name or grade instead.');
+    if(duplicateQuery){
+      const dupRows=[];for(const set of [DB.members,DB.interest]){const hits={};for(const row of set){let k=nrm(row.name);(hits[k]??=[]).push(row);}for(const names of Object.values(hits))if(names.length>1)dupRows.push(...names.map(n=>set===DB.members?memberToCard(n):leadToCard(n)));}
+      if(/\b(missing phone|missing number|no numbers)\b/.test(q))return answer('Missing contact details','These records have no verified parent/guardian contact number in the source.',[
+        {title:'GymDesk membership records without a verified guardian number',cards:membersFiltered.filter(m=>!(m.parentContacts||[]).some(c=>c.phone&&/parent|guardian/i.test(c.relationship))).map(memberToCard)},
+        {title:'Interest forms without a contact number',cards:DB.interest.filter(x=>g==null||x.grade===g).filter(x=>!x.parentPhone).map(leadToCard)}],
+        'GymDesk member/account phone can exist without being a verified parent number.');
+      return answer('Possible duplicate records','Names that repeat within the same source. These are review flags, not necessarily mistaken accounts.',[{title:'Duplicates to review',cards:dupRows}], 'Two same-name entries may represent legitimate separate records.');
+    }
+    if(noSignup){
+      let h=historicalFiltered.filter(x=>!membershipNameSet().has(nrm(x.name)));
+      let l=leadFiltered;
+      // The historical list is not regional enough to filter safely. Show only if no explicit region.
+      const sections=[];
+      if(isHistory && !isInterest){sections.push({title:'Historical names with no November GymDesk name match',cards:h.map(histToCard)});}
+      else if(isInterest && !isHistory){sections.push({title:'Interest names with no November GymDesk name match',cards:l.map(leadToCard)});}
+      else {sections.push({title:'Interest leads with no November GymDesk name match',cards:l.map(leadToCard)});if(!r)sections.push({title:'Historical roster names with no November GymDesk name match',cards:h.map(histToCard)});}
+      return answer('Who still needs a signup follow-up?',`For ${baseContext}: ${l.length} unmatched unique interest names${r?' (interest form did not record region)':''}${!r?', and '+h.length+' historical records without a November membership name match':''}.`,sections,'A missing name match does NOT prove someone failed to sign up, and a deposit membership label does NOT prove payment. Verify current registrations and contact consent before reaching out.');
+    }
+    if(isReturning){
+      const arr=DB.returning;
+      const historical=isHistory&&/\b(tryout|historical|history|previous team board)\b/.test(q);
+      if(historical)return answer('Historical player records',`${historicalFiltered.length} records matched ${baseContext} in the September master.`,[{title:'Historical roster / tryouts',cards:historicalFiltered.map(histToCard)}],'These are older source records, not a verified November roster.');
+      return answer('Returning FrazierHoops players',`${arr.length} players appear in the prior-season outreach review. Messages are drafts, not proof they were sent.`,[{title:'2025 returning-player list',cards:arr.map(returningToCard)}], 'Phone verification and parent consent notes are shown on each record.');
+    }
+    if(messagesQuery && !(/\b(how many|count)\b/.test(q))){
+      const ds=DB.outreachDrafts.filter(x=>g==null||x.grade===g);
+      return answer('Unsent parent outreach drafts',`${ds.length} personalized drafts available ${g?`for ${gName(g)}`:'across the file'}. Each one can be copied — no messages have been sent by this site.`,[{title:'Drafts from Nov 5',cards:ds.map(draftToCard)}], 'Check contact consent and current enrollment before sending.');
+    }
+    // Named athletes lookups. A full name match should beat any generic category search.
+    const pool=[...DB.members.map(memberToCard),...DB.interest.map(leadToCard),...DB.historical.map(histToCard),...DB.returning.map(returningToCard)];
+    const coreName=q.replace(/\b(?:find|look up|search for|tell me about|who is|what is|what's|number for|phone number for|contact for|do we have|how about)\b/g,'').trim();
+    const nameMatches=findMatches(coreName,pool,65);
+    const asksName=/\b(find|look up|search|who is|what is|what's|about|do we have|number for|contact for|phone for)\b/.test(q)||(!countQuery&&!isInterest&&!isHistory&&g==null&&r==null&&!/\b(all|memberships|roster|players|leads|drafts|outreach|team)\b/.test(q));
+    if(asksName&&nameMatches.length&&nameMatches.length<=22){
+      return answer('Player lookup',`Found ${nameMatches.length} matching source records. Repeated entries are shown separately so you can compare the source and date.`,[{title:'Search results',cards:nameMatches}], 'The same name may appear in multiple sources. Newer GymDesk memberships are distinct from older tryout or registration records.');
+    }
+    if(countQuery){
+      const membersG=membersFiltered;const leads=DB.interest.filter(x=>g==null||x.grade===g);
+      const master=isHistory?historicalFiltered:DB.historical;
+      if(g!==null||r){
+        return answer('Numbers by grade / region',`${membersG.length} GymDesk membership rows for ${baseContext}. ${r?'The interest form has no region, so interest records below are counted across all regions. ':''} There are ${leads.length} interest form rows in the requested grade, and ${historicalFiltered.length} records in the Sep master for that grade.`,[
+          {title:`GymDesk records · ${baseContext}`,cards:membersG.map(memberToCard)},
+          {title:'Interest form records · same grade',cards:leads.map(leadToCard)}],
+          'Source sets overlap and should not be summed. GymDesk labels are not confirmation of payment.');
+      }
+      return answer('Your full FBC data snapshot',`${DB.members.length} GymDesk membership rows (${uniqueName(DB.members).length} unique names), ${DB.interest.length} interest responses (${uniqueName(DB.interest).length} unique names), ${DB.historical.length} historical master records and ${DB.returning.length} returning-player outreach entries.`,[
+        {title:'GymDesk members organized by grade',cards:[],breakdown:countBy(DB.members,'grade').map(([gr,n])=>[gName(Number(gr)),n])},
+        {title:'Interested players organized by grade',cards:[],breakdown:countBy(DB.interest,'grade').map(([gr,n])=>[gName(Number(gr)),n])},
+        {title:'GymDesk members by region',cards:[],breakdown:countBy(DB.members,'region')}],
+        'Do not add the totals: an athlete can appear in multiple source files, and some rows duplicate. Last updated from source snapshots on Nov 16.');
+    }
+    if(isInterest){
+      const leads=DB.interest.filter(x=>g==null||x.grade===g);
+      return answer('Your AAU interest list',`${leads.length} interest form responses ${g?'for '+gName(g):'across all grades'}. These are prospective players, NOT paid registrations.`,[{title:'AAU interest form responses',cards:leads.map(leadToCard)}], 'The interest form does not record Cleveland/Pittsburgh region.');
+    }
+    if(isHistory){
+      return answer('Historical players and tryouts',`${historicalFiltered.length} September master records ${g?'in '+gName(g):'across all grades'}.`,[{title:'2026 historical roster',cards:historicalFiltered.map(histToCard)}], 'Proposed team placements and September registration statuses are historical, not current confirmed teams.');
+    }
+    if(/\b(team|teams|roster|rosters|15u|16u|17u|14u)\b/.test(q)){
+      return answer('Your grade-based roster view',`I found ${membersFiltered.length} membership-listed records for ${baseContext}. Players are grouped by membership grade, NOT assigned to confirmed competition teams.`,[{title:'GymDesk grade grouping',cards:membersFiltered.map(memberToCard)}], 'Check current team assignments and graduation eligibility separately. 11th-graders are not automatically excluded.');
+    }
+    if(contactQuery){
+      return answer('Parent and athlete contacts',`Here are ${membersFiltered.length} membership-listed records for ${baseContext}. Verified parent contacts are identified when listed; other account numbers are clearly marked unverified.`,[{title:'Membership-listed contacts',cards:membersFiltered.map(memberToCard)}], 'Only use verified adult numbers with appropriate contact consent; this app does not automatically send SMS.');
+    }
+    if(/\b(registered|registration|memberships|deposit|member|signups|signup)\b/.test(q)||g!==null||r){
+      return answer('GymDesk membership lookup',`${membersFiltered.length} membership-labeled rows in ${baseContext}.`,[{title:'AAU membership records',cards:membersFiltered.map(memberToCard)}], 'Deposit labels are not independently verified payments or confirmed team spots.');
+    }
+    if(nameMatches.length){return answer('Closest matches',`I found ${nameMatches.length} possible player records in the source data.`,[{title:'Records',cards:nameMatches}], 'If you meant a specific player, try their full name or grade.');}
+    return answer('I can search that with a little more detail','Try a player name, grade, region, roster or contact request — for example “Who from 9th grade showed interest?” or “Show the 16U Pittsburgh membership list.”',[], 'I only answer from the loaded FBC records and do not guess missing information.');
+  }
+  function showAnswer(response){
+    const msg=document.createElement('article');msg.className='message answer';const tag=document.createElement('div');tag.className='answerTag';tag.innerHTML='<span class="miniGlow"></span> FBC INTELLIGENCE';msg.appendChild(tag);
+    const head=document.createElement('h3');head.className='answerTitle';head.textContent=response.title;msg.appendChild(head);
+    if(response.body){const text=document.createElement('p');text.className='answerBody';text.textContent=response.body;msg.appendChild(text);}
+    for(const s of response.sections||[]){
+      const section=document.createElement('section');section.className='dataSection';const top=document.createElement('div');top.className='dataHead';const label=document.createElement('strong');label.textContent=s.title;top.appendChild(label);const subt=document.createElement('small');subt.textContent=s.breakdown?'GRADE / REGION':`${(s.cards||[]).length} records`;top.appendChild(subt);section.appendChild(top);
+      if(s.breakdown){const d=document.createElement('div');d.className='listWrap';for(const [k,v]of s.breakdown){const row=document.createElement('div');row.className='dataRow';const name=document.createElement('div');name.className='rowName';name.textContent=k;const qty=document.createElement('span');qty.className='badge';qty.textContent=v;row.append(name,qty);d.appendChild(row);}section.appendChild(d);}else if(s.cards&&s.cards.length){
+        const holder=document.createElement('div');holder.className='listWrap';section.appendChild(holder);
+        const renderRange=(from,to)=>{
+          for(const c of s.cards.slice(from,to)){
+            const row=document.createElement('div');row.className='dataRow';const left=document.createElement('div');left.style.minWidth='0';left.style.flex='1';
+            const name=document.createElement('div');name.className='rowName';name.textContent=c.name;left.appendChild(name);
+            const meta=document.createElement('div');meta.className='rowMeta';meta.textContent=[c.grade!=null?gName(c.grade):'',c.region&&c.region!=='Unspecified'?c.region:'',c.source].filter(Boolean).join('  ·  ');left.appendChild(meta);
+            if(c.secondary){const info=document.createElement('div');info.className='rowRemark';info.textContent=c.secondary;left.appendChild(info);}
+            if(c.parentName){const p=document.createElement('div');p.className='rowMeta';p.textContent='Parent/contact: '+c.parentName;left.appendChild(p);}
+            if(c.phone){const ph=document.createElement('div');ph.className='phoneRow';const link=document.createElement('a');link.className='phone';link.href='tel:+1'+c.phone;link.textContent=readable(c.phone);ph.appendChild(link);const copyBtn=document.createElement('button');copyBtn.type='button';copyBtn.className='microBtn';copyBtn.textContent='COPY #';copyBtn.onclick=()=>copy(c.phone);ph.appendChild(copyBtn);
+              if(c.draft){const txtb=document.createElement('button');txtb.className='microBtn';txtb.textContent='COPY DRAFT';txtb.onclick=()=>copy(c.draft);ph.appendChild(txtb);}left.appendChild(ph);
+              if(c.phoneType){const ptype=document.createElement('div');ptype.className='rowMeta';ptype.textContent=c.phoneType;left.appendChild(ptype);}
+            }else if(c.otherPhone){const phone=document.createElement('div');phone.className='rowMeta';phone.textContent='Account / tryout number: '+readable(c.otherPhone)+' — parent relationship not verified';left.appendChild(phone);}
+            const right=document.createElement('div');right.className='rowRight';const badge=document.createElement('span');badge.className='badge '+(c.badge||'');badge.textContent=c.status||'Source record';right.appendChild(badge);row.append(left,right);holder.appendChild(row);
+          }
+        };
+        const page=35;let shown=Math.min(page,s.cards.length);renderRange(0,shown);
+        if(s.cards.length>shown){const more=document.createElement('button');more.type='button';more.className='moreButton';more.textContent=`SHOW MORE · ${s.cards.length-shown} REMAINING`;more.onclick=()=>{const next=Math.min(s.cards.length,shown+page);renderRange(shown,next);shown=next;more.textContent=`SHOW MORE · ${s.cards.length-shown} REMAINING`;if(shown>=s.cards.length)more.remove();};section.appendChild(more);}
+        const actions=document.createElement('div');actions.className='answerActions';actions.style.padding='0 13px 12px';
+        const namesBtn=document.createElement('button');namesBtn.className='action';namesBtn.type='button';namesBtn.textContent='COPY ALL NAMES';namesBtn.onclick=()=>copy(s.cards.map(x=>x.name).join('\n'));actions.appendChild(namesBtn);
+        const phoneNums=[...new Set(s.cards.map(x=>x.phone).filter(Boolean))];if(phoneNums.length){const phonesBtn=document.createElement('button');phonesBtn.className='action';phonesBtn.type='button';phonesBtn.textContent=`COPY ${phoneNums.length} CONTACT #s`;phonesBtn.onclick=()=>copy(phoneNums.join('\n'));actions.appendChild(phonesBtn);}
+        const csvBtn=document.createElement('button');csvBtn.className='action';csvBtn.type='button';csvBtn.textContent='EXPORT CSV';csvBtn.onclick=()=>downloadCSV(s.cards,s.title);actions.appendChild(csvBtn);section.appendChild(actions);
+      }else{const empty=document.createElement('p');empty.className='answerBody';empty.style.padding='12px 16px';empty.textContent='No records found in this source for those filters.';section.appendChild(empty);}
+      msg.appendChild(section);
+    }
+    if(response.note){const note=document.createElement('p');note.className='answerNote';note.textContent=response.note;msg.appendChild(note);}
+    $('#chat').appendChild(msg);$('#chat').scrollTop=$('#chat').scrollHeight;
+  }
+  function downloadCSV(cards,label){const cols=['Player','Grade','Region','Source','Status','Verified contact','Contact description','Notes'];const rows=cards.map(r=>[r.name,r.grade==null?'':gName(r.grade),r.region||'',r.source,r.status||'',r.phone||'',r.phoneType||'',r.secondary||'']);const enc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const csv='\uFEFF'+[cols,...rows].map(r=>r.map(enc).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='FBC_'+label.toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,34)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);toast('Private CSV exported to your device');}
+  function ask(value){const q=txt(value);if(!q)return;if(!DB){toast('Unlock private data to ask questions');return;}const welcome=$('#welcome');if(welcome)welcome.remove();const message=document.createElement('div');message.className='message user';const bubble=document.createElement('div');bubble.className='bubble';bubble.textContent=q;message.appendChild(bubble);$('#chat').appendChild(message);$('#question').value='';$('#question').style.height='auto';const res=answerQuery(q);showAnswer(res);}
+  $('#askForm').addEventListener('submit',e=>{e.preventDefault();ask($('#question').value);});
+  $('#question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#askForm').requestSubmit();}});
+  $('#question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(150,e.target.scrollHeight)+'px';});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)ask(b.getAttribute('data-q'));});
+  $('#aboutBtn').onclick=()=>ask('What information do you have on file?');
+  $('#lockBtn').onclick=async()=>{await clearKey();DB=null;location.href='/ask-fbc/';};
+  $('#unlockBtn').onclick=unlockFromField;$('#keyInput').addEventListener('keydown',e=>{if(e.key==='Enter')unlockFromField();});
+  $('#voiceBtn').onclick=()=>{
+    const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!Speech){toast('Voice recognition is not available here. Try typing your question.');return;}
+    if(recognize){recognize.stop();recognize=null;$('#voiceBtn').classList.remove('listening');return;}
+    try{const r=new Speech();recognize=r;r.lang='en-US';r.interimResults=false;r.maxAlternatives=1;$('#voiceBtn').classList.add('listening');$('#voiceState').textContent='LISTENING...';r.onresult=ev=>ask(ev.results[0][0].transcript);r.onerror=()=>toast('Could not hear you. Please type your question.');r.onend=()=>{recognize=null;$('#voiceBtn').classList.remove('listening');$('#voiceState').textContent='VOICE READY';};r.start();}catch{toast('Microphone unavailable. Use typing.');}
+  };
+  // URL fragment is processed entirely in-browser; immediately clear it to avoid leaving it in history/referrers.
+  const fromURL=new URLSearchParams(location.hash.replace(/^#/,''));const key=fromURL.get('key');
+  if(key){history.replaceState(null,'',location.pathname+location.search);const raw=kmask(key);if(raw)unlock(null,raw);else $('#unlockError').textContent='The secure link contained an invalid unlock key.';}
+  else getSavedKey().then(k=>{if(k)unlock(k,null);});
+})();
+</script>
+</body>
+</html>
