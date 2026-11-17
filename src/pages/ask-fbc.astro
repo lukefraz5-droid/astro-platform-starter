@@ -29,13 +29,33 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 @media(max-width:1280px){.columns{grid-template-columns:218px minmax(0,1fr) 250px}.header{padding:0 25px}.sidebar{padding:26px 13px}.insights{padding:25px 14px}.chat{padding:12px 23px 22px}.stage{padding:22px 23px 0}.composer{padding:12px 23px 20px}}
 @media(max-width:1070px){.columns{grid-template-columns:210px minmax(0,1fr)}.insights{display:none}.center{max-height:calc(100dvh - 82px)}.header{padding:0 22px}}
 @media(max-width:700px){.header{height:67px;padding:0 16px}.emblem{width:41px;height:41px;border-radius:12px;font-size:18px}.brandname{font-size:13px}.brandsub{font-size:8px;letter-spacing:.1em}.headerRight .pill{display:none}.headerBtn{padding:8px 10px;font-size:11px}.columns{display:block;min-height:calc(100dvh - 67px)}.sidebar{display:none}.center{height:calc(100dvh - 67px);max-height:none}.stage{padding:21px 18px 4px}.stageTitle{font-size:20px}.stageMeta{font-size:10px}.chat{padding:10px 18px 18px}.welcome{padding-top:17px}.orb{width:65px;height:65px;font-size:27px;border-radius:20px}.hello{font-size:35px;margin:23px 0 10px}.lede{font-size:13px}.promptGrid{gap:8px;margin-top:24px}.prompt{padding:12px;min-height:96px;font-size:11px}.composer{padding:8px 13px max(13px,env(safe-area-inset-bottom))}.composerShell{min-height:61px;border-radius:14px;padding:7px 8px 7px 12px}.composer textarea{font-size:16px}.sendButton,.micButton{height:43px;min-width:40px}.hint{padding-top:7px}.answerTitle{font-size:21px}.bubble{max-width:92%}.rowRight{max-width:40%}.phoneRow{gap:5px}.dataRow{padding:12px}.unlock{padding:25px}.unlock h1{font-size:30px}}
+
+.voiceDeck{margin:16px 32px 6px;padding:12px 14px;border:1px solid #34514c;border-radius:18px;background:linear-gradient(115deg,#162925,#0b171a);display:flex;gap:15px;align-items:center;min-height:102px;box-shadow:0 4px 24px #0004;position:relative;overflow:hidden;flex-shrink:0}
+.voiceDeck:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 160px 90px at 9% 40%,#b7ff5820,transparent 85%);pointer-events:none}
+.voiceDeck.on{border-color:#8fc96a;box-shadow:0 0 0 2px #b5ff4b16,0 4px 30px #0006}
+.voiceOrb{width:73px;height:73px;flex:0 0 73px;border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 35% 35%,#2b493c,#0b181b);border:1px solid #50775c;box-shadow:0 0 26px #8bd8621c;color:#b4e38f}
+.voiceCore{position:relative;z-index:2;font-size:30px;text-shadow:0 0 20px #a8f66d77}
+.voiceOrb .wave{position:absolute;inset:8px;border:1px solid #afff8360;border-radius:50%;opacity:0;transform:scale(.7);pointer-events:none}
+.voiceOrb.active .wave{animation:waveExpand 2.2s infinite ease-out}.voiceOrb.active .wave2{animation-delay:1.1s}
+.voiceOrb.speaking{background:radial-gradient(circle at 35% 35%,#49522c,#233220);color:#f2ffbc}
+@keyframes waveExpand{0%{transform:scale(.7);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.voiceDetails{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1;position:relative;z-index:1}
+.voiceDetails strong{font-size:12px;letter-spacing:.13em;color:#c4ff64;font-weight:900}
+.voiceDetails span{color:#9fb8b0;font-size:11px;line-height:1.4}
+.voiceDetails .voiceTranscript{color:#e2ffb4;font-size:11px;font-weight:700;letter-spacing:.03em;max-height:27px;overflow:hidden}
+.voiceControls{display:flex;gap:6px;align-items:center;flex-shrink:0;position:relative;z-index:1}
+.voiceControls button{border:1px solid #496449;border-radius:10px;min-height:40px;font-size:11px;font-weight:800;padding:10px 13px}
+.voiceSwitch{background:#c4ff64;color:#142016;min-width:77px}.voiceSwitch[aria-pressed="true"]{background:#2a4539;color:#d7ffc1}
+.voiceSound{background:#243632;color:#ccedc8}
+@media(max-width:1280px){.voiceDeck{margin:14px 23px 6px}}
+@media(max-width:700px){.voiceDeck{margin:10px 13px 4px;padding:9px 10px;min-height:77px;gap:10px;border-radius:14px}.voiceOrb{width:54px;height:54px;flex-basis:54px}.voiceCore{font-size:24px}.voiceDetails strong{font-size:10px;letter-spacing:.08em}.voiceDetails span{font-size:10px;line-height:1.25}.voiceControls{gap:4px}.voiceControls button{padding:8px;min-height:36px;font-size:10px}.voiceSwitch{min-width:52px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="header">
   <div class="identity"><div class="emblem">FBC</div><div><div class="brandname">ASK FBC<span style="color:var(--lime)">.</span></div><div class="brandsub">Private Basketball Intelligence</div></div></div>
-  <div class="headerRight"><div class="pill"><span class="pulse"></span> SECURE · LOCAL SEARCH</div><button class="headerBtn" id="aboutBtn" type="button">DATA SOURCES</button><button class="headerBtn" id="lockBtn" type="button" title="Lock the private player data">LOCK ⟲</button></div>
+  <div class="headerRight"><div class="pill" id="topVoicePill"><span class="pulse" id="topVoicePulse"></span><span id="topVoiceText">SECURE · VOICE STANDBY</span></div><button class="headerBtn" id="aboutBtn" type="button">DATA SOURCES</button><button class="headerBtn" id="lockBtn" type="button" title="Lock the private player data">LOCK ⟲</button></div>
 </header>
 <div class="columns">
   <aside class="sidebar">
@@ -52,6 +72,11 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
   </aside>
   <main class="center">
     <div class="stage"><div><div class="eyebrow">THE DATA KNOWS.</div><h2 class="stageTitle">Your basketball universe, one question away.</h2></div><div class="stageMeta" id="dateBadge">SNAPSHOT · NOV 16, 2026</div></div>
+    <section class="voiceDeck" id="voiceDeck" aria-label="FBC hands-free voice assistant">
+      <div class="voiceOrb" id="voiceOrb" aria-hidden="true"><span class="voiceCore">◉</span><span class="wave wave1"></span><span class="wave wave2"></span></div>
+      <div class="voiceDetails"><strong id="voiceHeadline">HANDS-FREE MODE</strong><span id="voiceHelp">I am setting up your microphone. Speak normally once it is active.</span><span id="voiceTranscript" class="voiceTranscript" aria-live="off"></span></div>
+      <div class="voiceControls"><button class="voiceSwitch" type="button" id="handsFreeToggle" aria-pressed="false" title="Turn continuous hands-free listening on or off">ENABLE VOICE</button><button class="voiceSound" type="button" id="voiceSoundToggle" aria-pressed="true" title="Turn spoken answers on or off">🔊</button></div>
+    </section>
     <div id="chat" class="chat" role="log" aria-live="polite" aria-label="Ask FBC conversation">
       <div class="welcome" id="welcome">
         <div class="orb"><span>✳</span></div>
@@ -65,7 +90,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
         </div><div class="welcomeFoot">FBC MEMBER EXPORT + AAU INTEREST + HISTORIC 2026 MASTER + RETURNING ROSTERS · PRIVATE VIEW</div>
       </div>
     </div>
-    <form class="composer" id="askForm" autocomplete="off"><div class="composerShell"><textarea id="question" rows="1" placeholder="Ask about players, signups, grades, numbers..." aria-label="Ask FBC a question" maxlength="500" spellcheck="true"></textarea><button class="micButton" id="voiceBtn" type="button" title="Ask using your voice" aria-label="Use microphone">♩</button><button class="sendButton" type="submit" title="Ask FBC" aria-label="Send question">➜</button></div><div class="hint"><span>REAL RECORDS · SOURCE-BASED ANSWERS</span><span id="voiceState">VOICE IF SUPPORTED</span></div></form>
+    <form class="composer" id="askForm" autocomplete="off"><div class="composerShell"><textarea id="question" rows="1" placeholder="Ask about players, signups, grades, numbers..." aria-label="Ask FBC a question" maxlength="500" spellcheck="true"></textarea><button class="micButton" id="voiceBtn" type="button" title="Pause or resume always-on listening" aria-label="Toggle hands-free listening" aria-pressed="false">◉</button><button class="sendButton" type="submit" title="Ask FBC" aria-label="Send question">➜</button></div><div class="hint"><span>REAL RECORDS · SOURCE-BASED ANSWERS</span><span id="voiceState" role="status" aria-live="polite">INITIALIZING VOICE</span></div></form>
   </main>
   <aside class="insights">
     <div class="insightsHeader">LIVE IN YOUR DATA CORE</div>
@@ -77,7 +102,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
     <div class="insightFooter"><b>◎ PRIVATE BY DESIGN</b>Data is encrypted in the repository, unlocked only on your device. Not synchronized live with GymDesk or Google Forms.</div>
   </aside>
 </div></div>
-<div class="overlay" id="locked"><section class="unlock" aria-label="Unlock your FBC data"><div class="lockIcon">◈</div><h1>Unlock FBC Intelligence.</h1><p>Player and parent records are encrypted. Open your private unlock link once to connect all the records we already have, or enter the secure unlock key below.</p><label class="keylabel" for="keyInput">PRIVATE UNLOCK KEY</label><input id="keyInput" class="keyfield" type="password" inputmode="text" placeholder="Paste your private key here" autocomplete="off"/><button id="unlockBtn" class="unlockButton" type="button">ACCESS DATA CORE →</button><div class="unlockError" id="unlockError" role="alert"></div><div class="unlockFoot">Your unlock key is never sent to the website or any AI service. Decryption and questions run on your device. The site is also protected by your Netlify login.</div></section></div>
+<div class="overlay" id="locked"><section class="unlock" aria-label="Unlock your FBC data"><div class="lockIcon">◈</div><h1>Unlock FBC Intelligence.</h1><p>Player and parent records are encrypted. Open your private unlock link once to connect all the records we already have, or enter the secure unlock key below.</p><label class="keylabel" for="keyInput">PRIVATE UNLOCK KEY</label><input id="keyInput" class="keyfield" type="password" inputmode="text" placeholder="Paste your private key here" autocomplete="off"/><button id="unlockBtn" class="unlockButton" type="button">ACCESS DATA CORE →</button><div class="unlockError" id="unlockError" role="alert"></div><div class="unlockFoot">Your unlock key is never sent to the website or an AI service. Roster answers run on your device. When voice is enabled, your browser's speech recognition provider may process microphone audio; the microphone indicator stays visible. The site is also protected by your Netlify login.</div></section></div>
 <div class="toaster hidden" role="status" id="toast"></div>
 <script is:inline>
 (() => {
@@ -89,6 +114,18 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
   const txt = (v) => String(v??'').trim();
   let DB = null, currentResults = null, recognize = null, busy = false;
   let inbox = null;
+  // User has requested voice-first, hands-free answers. Browsers may require one initial
+  // gesture/permission; once granted, listening automatically resumes between questions.
+  const voiceAvailable = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const voicePref = (key) => { try { return localStorage.getItem(key); } catch { return null; } };
+  const saveVoicePref = (key, value) => { try { localStorage.setItem(key, value); } catch {} };
+  let voiceWanted = voicePref('fbc-handsfree-enabled-v1') !== 'off';
+  let voiceReplies = voicePref('fbc-handsfree-sound-v1') !== 'off';
+  let voiceRunning = false, voiceStarting = false, voiceSpeaking = false;
+  let voiceNeedsGesture = false, voiceDenied = false, voiceAttempts = 0;
+  let voiceRetry = null, voiceFlushTimer = null, voiceBuffer = '', voiceNarrationTimer = null;
+  let voiceLastText = '', voiceLastAt = 0;
+  const MAX_VOICE_RETRIES = 5;
   function toast(message) { const el=$('#toast');el.textContent=message;el.classList.remove('hidden');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.add('hidden'),2500); }
   async function copy(value) { try { await navigator.clipboard.writeText(value);toast('Copied to clipboard'); } catch {toast('Copy not available in this browser');} }
   function kmask(k) {return /^[0-9a-f]{64}$/i.test(k.trim()) ? k.trim() : null;}
@@ -126,8 +163,8 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
     $('#leadCount').textContent=DB.interest.length;
     $('#historyCount').textContent=DB.historical.length;
     $('#missingCount').textContent=new Set(DB.interest.filter(x=>!x.membershipNameMatch).map(x=>nrm(x.name))).size;
-    $('#voiceState').textContent= ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) ? 'VOICE READY':'VOICE NOT SUPPORTED';
-    $('#question').focus();
+    setVoiceStatus(voiceAvailable ? (voiceWanted ? 'starting' : 'off') : 'unsupported');
+    if (voiceAvailable && voiceWanted) startContinuousVoice(false);
   }
   function targetGrade(query) {
     const q=query.toLowerCase();let m;
@@ -299,20 +336,191 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
     $('#chat').appendChild(msg);$('#chat').scrollTop=$('#chat').scrollHeight;
   }
   function downloadCSV(cards,label){const cols=['Player','Grade','Region','Source','Status','Verified contact','Contact description','Notes'];const rows=cards.map(r=>[r.name,r.grade==null?'':gName(r.grade),r.region||'',r.source,r.status||'',r.phone||'',r.phoneType||'',r.secondary||'']);const enc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const csv='\uFEFF'+[cols,...rows].map(r=>r.map(enc).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='FBC_'+label.toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,34)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);toast('Private CSV exported to your device');}
-  function ask(value){const q=txt(value);if(!q)return;if(!DB){toast('Unlock private data to ask questions');return;}const welcome=$('#welcome');if(welcome)welcome.remove();const message=document.createElement('div');message.className='message user';const bubble=document.createElement('div');bubble.className='bubble';bubble.textContent=q;message.appendChild(bubble);$('#chat').appendChild(message);$('#question').value='';$('#question').style.height='auto';const res=answerQuery(q);showAnswer(res);}
+  function ask(value, fromVoice=false){const q=txt(value);if(!q)return null;if(!DB){toast('Unlock private data to ask questions');return null;}const welcome=$('#welcome');if(welcome)welcome.remove();const message=document.createElement('div');message.className='message user';const bubble=document.createElement('div');bubble.className='bubble';bubble.textContent=q;message.appendChild(bubble);$('#chat').appendChild(message);$('#question').value='';$('#question').style.height='auto';const res=answerQuery(q);showAnswer(res);if(fromVoice)voiceAnswer(res);return res;}
   $('#askForm').addEventListener('submit',e=>{e.preventDefault();ask($('#question').value);});
   $('#question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#askForm').requestSubmit();}});
   $('#question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(150,e.target.scrollHeight)+'px';});
   document.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)ask(b.getAttribute('data-q'));});
   $('#aboutBtn').onclick=()=>ask('What information do you have on file?');
-  $('#lockBtn').onclick=async()=>{await clearKey();DB=null;location.href='/ask-fbc/';};
+  $('#lockBtn').onclick=async()=>{voiceWanted=false;haltVoice();await clearKey();DB=null;location.href='/ask-fbc/';};
   $('#unlockBtn').onclick=unlockFromField;$('#keyInput').addEventListener('keydown',e=>{if(e.key==='Enter')unlockFromField();});
-  $('#voiceBtn').onclick=()=>{
+  function setVoiceStatus(mode, extra=''){
+    const states={
+      on:['LISTENING · HANDS-FREE','Speak naturally. Ask about players, signups, grades, teams or parent numbers.','LISTENING'],
+      starting:['STARTING VOICE','Connecting to your microphone…','STARTING'],
+      waiting:['ONE-TIME MICROPHONE STEP','Tap anywhere once and allow microphone access. Then just talk.','TAP ONCE TO ALLOW'],
+      speaking:['ANSWERING OUT LOUD','When I finish speaking, I will listen for your next question.','SPEAKING'],
+      paused:['VOICE PAUSED','When you return to this tab, listening can resume.','PAUSED'],
+      error:['MICROPHONE UNAVAILABLE','Check Safari microphone permission or use the text box.','VOICE ERROR'],
+      off:['HANDS-FREE IS OFF','Enable once to let FBC listen for questions automatically.','VOICE OFF'],
+      unsupported:['VOICE NOT SUPPORTED','Try updated Safari. You can still type every question.','VOICE UNAVAILABLE']
+    };
+    const [heading,help,short]=states[mode]||states.error;
+    $('#voiceHeadline').textContent=heading;
+    $('#voiceHelp').textContent=extra||help;
+    $('#voiceState').textContent=short;
+    $('#topVoiceText').textContent=short+' · PRIVATE DATA';
+    $('#voiceOrb').classList.toggle('active',mode==='on');
+    $('#voiceOrb').classList.toggle('speaking',mode==='speaking');
+    $('#voiceDeck')?.classList.toggle('on',mode==='on');
+    $('#voiceBtn').classList.toggle('listening',mode==='on');
+    $('#voiceBtn').setAttribute('aria-pressed',String(voiceWanted&&voiceAvailable));
+    $('#handsFreeToggle').textContent=voiceWanted&&voiceAvailable?'PAUSE':'ENABLE';
+    $('#handsFreeToggle').setAttribute('aria-pressed',String(voiceWanted&&voiceAvailable));
+    $('#voiceSoundToggle').textContent=voiceReplies?'🔊':'🔇';
+    $('#voiceSoundToggle').setAttribute('aria-pressed',String(voiceReplies));
+    $('#topVoicePulse').style.background=mode==='on'?'#c5ff57':(mode==='waiting'?'#ffaa61':'#718580');
+  }
+  function haltVoice(cancelTalking=true){
+    clearTimeout(voiceRetry);clearTimeout(voiceFlushTimer);
+    voiceRetry=null;voiceFlushTimer=null;voiceBuffer='';
+    const r=recognize;recognize=null;voiceRunning=false;voiceStarting=false;
+    if(r){try{r.stop();}catch{}}
+    if(cancelTalking){clearTimeout(voiceNarrationTimer);voiceSpeaking=false;try{window.speechSynthesis?.cancel();}catch{}}
+  }
+  function setHandsFree(on){
+    voiceWanted=!!on&&voiceAvailable;
+    saveVoicePref('fbc-handsfree-enabled-v1',voiceWanted?'on':'off');
+    voiceAttempts=0;voiceNeedsGesture=false;voiceDenied=false;
+    if(voiceWanted){setVoiceStatus('starting');startContinuousVoice(true);}
+    else {haltVoice();setVoiceStatus(voiceAvailable?'off':'unsupported');}
+  }
+  function planVoiceRestart(delay=500){
+    if(!DB||!voiceWanted||voiceSpeaking||voiceNeedsGesture||document.visibilityState!=='visible')return;
+    clearTimeout(voiceRetry);
+    voiceRetry=setTimeout(()=>{voiceRetry=null;startContinuousVoice(false);},delay);
+  }
+  function startContinuousVoice(userGesture=false){
+    if(!DB||!voiceWanted||!voiceAvailable||recognize||voiceSpeaking||document.visibilityState!=='visible')return;
+    if(voiceNeedsGesture&&!userGesture){setVoiceStatus('waiting');return;}
     const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(!Speech){toast('Voice recognition is not available here. Try typing your question.');return;}
-    if(recognize){recognize.stop();recognize=null;$('#voiceBtn').classList.remove('listening');return;}
-    try{const r=new Speech();recognize=r;r.lang='en-US';r.interimResults=false;r.maxAlternatives=1;$('#voiceBtn').classList.add('listening');$('#voiceState').textContent='LISTENING...';r.onresult=ev=>ask(ev.results[0][0].transcript);r.onerror=()=>toast('Could not hear you. Please type your question.');r.onend=()=>{recognize=null;$('#voiceBtn').classList.remove('listening');$('#voiceState').textContent='VOICE READY';};r.start();}catch{toast('Microphone unavailable. Use typing.');}
+    if(!Speech){setVoiceStatus('unsupported');return;}
+    try{
+      const r=new Speech();recognize=r;voiceStarting=true;voiceNeedsGesture=false;
+      r.lang='en-US';r.continuous=true;r.interimResults=true;r.maxAlternatives=1;
+      r.onstart=()=>{
+        if(recognize!==r)return;
+        voiceRunning=true;voiceStarting=false;voiceDenied=false;
+        $('#voiceTranscript').textContent='';setVoiceStatus('on');
+      };
+      r.onresult=(event)=>{
+        if(!voiceWanted||voiceSpeaking||recognize!==r)return;
+        let final='';let interim='';
+        for(let j=event.resultIndex||0;j<event.results.length;j++){
+          const hit=event.results[j],part=String(hit[0]?.transcript||'').trim();
+          if(!part)continue;
+          if(hit.isFinal)final+=(final?' ':'')+part;
+          else interim+=(interim?' ':'')+part;
+        }
+        if(final){
+          voiceAttempts=0;
+          voiceBuffer=(voiceBuffer+' '+final).trim();
+          clearTimeout(voiceFlushTimer);
+          voiceFlushTimer=setTimeout(flushVoiceWords,650);
+        }
+        $('#voiceTranscript').textContent=(voiceBuffer||interim)?'HEARD · '+(voiceBuffer||interim).slice(0,120):'';
+      };
+      r.onerror=(event)=>{
+        if(recognize!==r)return;
+        const code=String(event?.error||'unknown');
+        if(code==='not-allowed'||code==='service-not-allowed'||code==='permission-denied'){
+          voiceNeedsGesture=true;voiceDenied=true;setVoiceStatus('waiting','Safari may need one tap and microphone permission. Tap the screen to try again.');
+        }else if(code==='audio-capture'){
+          voiceNeedsGesture=true;setVoiceStatus('error','No microphone detected. Enable Safari microphone access and tap the screen to retry.');
+        }else if(code==='network'||code==='language-not-supported'){
+          voiceAttempts++;
+          if(voiceAttempts>=MAX_VOICE_RETRIES){voiceNeedsGesture=true;setVoiceStatus('error','The browser speech service cannot connect. Tap once to retry or type instead.');}
+          else setVoiceStatus('starting','Reconnecting voice recognition…');
+        }
+        // 'no-speech' and 'aborted' are normal termination conditions; onend restarts.
+      };
+      r.onend=()=>{
+        if(recognize!==r)return;
+        recognize=null;voiceRunning=false;voiceStarting=false;
+        if(!voiceWanted||!DB){setVoiceStatus('off');return;}
+        if(voiceSpeaking){setVoiceStatus('speaking');return;}
+        if(document.visibilityState!=='visible'){setVoiceStatus('paused');return;}
+        if(voiceNeedsGesture){setVoiceStatus(voiceDenied?'waiting':'error');return;}
+        setVoiceStatus('starting');
+        planVoiceRestart(Math.min(8000,450*(voiceAttempts+1)));
+      };
+      setVoiceStatus('starting');
+      r.start();
+    }catch(err){
+      recognize=null;voiceStarting=false;voiceRunning=false;voiceNeedsGesture=true;
+      setVoiceStatus('waiting','Tap anywhere once to allow hands-free microphone access.');
+    }
+  }
+  function flushVoiceWords(){
+    voiceFlushTimer=null;
+    const raw=voiceBuffer.trim();voiceBuffer='';
+    if(!raw||!DB||!voiceWanted)return;
+    $('#voiceTranscript').textContent='';
+    // Optional wake phrase: "Hey FBC". Normal questions work without it.
+    let query=raw.replace(/^(?:(?:hey|hi|okay|ok)\s+)?(?:ask\s+)?(?:f\s*b\s*c|friga)(?:[\s,.!?]+|$)/i,'').trim();
+    if(!query)return;
+    if(/^(?:stop listening|pause listening|go to sleep|turn off (?:the )?microphone|mute the microphone)\b/i.test(query)){
+      setHandsFree(false);toast('FBC stopped listening');return;
+    }
+    if(/^(?:turn (?:the )?sound off|quiet mode|stop talking|silent mode)\b/i.test(query)){
+      voiceReplies=false;saveVoicePref('fbc-handsfree-sound-v1','off');setVoiceStatus('on');return;
+    }
+    if(/^(?:turn (?:the )?sound on|speak answers|talk to me)\b/i.test(query)){
+      voiceReplies=true;saveVoicePref('fbc-handsfree-sound-v1','on');setVoiceStatus('on');return;
+    }
+    if(query===voiceLastText&&Date.now()-voiceLastAt<2300)return;
+    voiceLastText=query;voiceLastAt=Date.now();
+    ask(query,true);
+  }
+  function voiceAnswer(reply){
+    if(!voiceReplies||!window.speechSynthesis||!window.SpeechSynthesisUtterance||!reply)return;
+    const totals=(reply.sections||[]).reduce((sum,sec)=>sum+(sec.cards?.length||0),0);
+    let spoken=(reply.body||reply.title||'I found those records.').replace(/\s+/g,' ').trim();
+    if(!spoken)spoken=reply.title||'I found those records.';
+    // Say a short response while keeping full rosters and private numbers on the screen.
+    if(spoken.length>280)spoken=spoken.slice(0,277).replace(/\s+\S*$/,'')+'.';
+    if(totals>0&&!/record|player|found|result|listed|matched/i.test(spoken))spoken=`I found ${totals} records. `+spoken;
+    if(!voiceWanted||document.visibilityState!=='visible')return;
+    voiceSpeaking=true;
+    // Prevent recognizing our own voice while speaking, and resume automatically after.
+    if(recognize){try{recognize.stop();}catch{}}
+    setVoiceStatus('speaking');
+    try{
+      window.speechSynthesis.cancel();
+      const sentence=new SpeechSynthesisUtterance(spoken);
+      sentence.lang='en-US';sentence.rate=1.08;sentence.pitch=1.0;
+      let ended=false;
+      const done=()=>{
+        if(ended)return;ended=true;clearTimeout(voiceNarrationTimer);voiceSpeaking=false;
+        if(voiceWanted&&DB){setVoiceStatus('starting');planVoiceRestart(280);}else setVoiceStatus('off');
+      };
+      sentence.onend=done;sentence.onerror=done;
+      voiceNarrationTimer=setTimeout(done,30000);
+      window.speechSynthesis.speak(sentence);
+    }catch{voiceSpeaking=false;setVoiceStatus('starting');planVoiceRestart(500);}
+  }
+  $('#handsFreeToggle').onclick=()=>setHandsFree(!voiceWanted);
+  $('#voiceBtn').onclick=()=>setHandsFree(!voiceWanted);
+  $('#voiceSoundToggle').onclick=()=>{
+    voiceReplies=!voiceReplies;saveVoicePref('fbc-handsfree-sound-v1',voiceReplies?'on':'off');
+    $('#voiceSoundToggle').textContent=voiceReplies?'🔊':'🔇';
+    $('#voiceSoundToggle').setAttribute('aria-pressed',String(voiceReplies));
+    toast(voiceReplies?'Spoken answers enabled':'Spoken answers muted');
   };
+  // A new microphone grant on iOS may require a trusted user gesture.
+  // This handler makes an ordinary tap anywhere suffice rather than a mic-button tap.
+  document.addEventListener('pointerdown',event=>{
+    if(!voiceWanted||!DB||!voiceNeedsGesture||recognize)return;
+    if(event.target.closest('#handsFreeToggle,#voiceBtn,#voiceSoundToggle,#lockBtn,#unlockBtn'))return;
+    voiceNeedsGesture=false;voiceDenied=false;voiceAttempts=0;startContinuousVoice(true);
+  },{capture:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState!=='visible'){
+      haltVoice();if(voiceWanted)setVoiceStatus('paused');
+    }else if(voiceWanted&&DB){voiceAttempts=0;startContinuousVoice(false);}
+  });
+  window.addEventListener('pagehide',()=>haltVoice());
+
   // URL fragment is processed entirely in-browser; immediately clear it to avoid leaving it in history/referrers.
   const fromURL=new URLSearchParams(location.hash.replace(/^#/,''));const key=fromURL.get('key');
   if(key){history.replaceState(null,'',location.pathname+location.search);const raw=kmask(key);if(raw)unlock(null,raw);else $('#unlockError').textContent='The secure link contained an invalid unlock key.';}
