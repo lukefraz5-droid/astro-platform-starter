@@ -139,6 +139,14 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
     for(let [word,g] of Object.entries(words)) if(new RegExp('\\b'+word+'\\b').test(q))return g;
     return null;
   }
+  function targetGrades(query){
+    const q=query.toLowerCase();const grades=[];
+    for(const m of q.matchAll(/\b(1[0-2]|[3-9])(?:st|nd|rd|th)?\s*(?:graders?|grade)\b/g))grades.push(Number(m[1]));
+    for(const m of q.matchAll(/\b(1[0-2]|[3-9])(?:st|nd|rd|th)\b/g))grades.push(Number(m[1]));
+    for(const m of q.matchAll(/\b(14|15|16|17|18)\s*u\b/g))grades.push(Number(m[1])-6);
+    if(!grades.length){const single=targetGrade(q);if(single!=null)grades.push(single);}
+    return [...new Set(grades)].filter(g=>g>=3&&g<=12).sort((a,b)=>a-b);
+  }
   function regionFrom(q){return /\b(pitt|pittsburgh|pgh)\b/i.test(q)?'Pittsburgh':(/\b(cle|cleveland)\b/i.test(q)?'Cleveland':null);}
   function gName(g){return g===null||g===undefined?'Grade unknown':String(g)+(g===11?'th':g===12?'th':g===13?'th':g%10===1?'st':g%10===2?'nd':g%10===3?'rd':'th')+' grade';}
   function countBy(rows,field){const c={};for(const v of rows){const k=v[field]??'Unknown';c[k]=(c[k]||0)+1;}return Object.entries(c).sort((a,b)=>Number(a[0])-Number(b[0]));}
@@ -155,10 +163,10 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
   function groupDataCards(rows,converter){return rows.map(converter);}
   function answer(title,body,sections=[],note='',stats=[]){return {title,body,sections,note,stats};}
   const nameStop=new Set(('what who where when why how is are was were do does did I we my me you your us for of and a an the on in from with to all show find get give tell list name names number numbers phone phones contact contacts parent parents grade graders student players player team teams registered signup signed sign up gymdesk roster deposit paid pay school info data details someone their status about any those ours last this year spring aau fbc friga basketball club please who has have need needs want whether can could which compared requested text send messages').split(' '));
-  function findMatches(q,results,max=25){const stripped=q.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,' ').replace(/[^a-z\d\- ]/g,' ').split(/\s+/).filter(w=>w&&w.length>=2&&!nameStop.has(w)&&!/^\d+(st|nd|rd|th|u)?$/.test(w));if(!stripped.length)return[];const scored=[];for(const item of results){const name=nrm(item.name);const full=nrm(stripped.join(' '));let score=0;if(full&&name.includes(full))score+=20;if(stripped.every(t=>name.includes(nrm(t))))score+=14;for(const t of stripped){if(name.includes(nrm(t)))score+=t.length>=4?5:2;}if(score>=5)scored.push([score,item]);}return scored.sort((a,b)=>b[0]-a[0]).slice(0,max).map(x=>x[1]);}
+  function findMatches(q,results,max=25){const stripped=q.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,' ').replace(/[^a-z\d\- ]/g,' ').split(/\s+/).filter(w=>w&&w.length>=2&&!nameStop.has(w)&&!/^\d+(st|nd|rd|th|u)?$/.test(w));if(!stripped.length)return[];const scored=[];for(const item of results){const name=nrm(item.name);const full=nrm(stripped.join(' '));let score=0;if(full&&name.includes(full))score+=20;if(stripped.every(t=>name.includes(nrm(t))))score+=14;for(const t of stripped){if(name.includes(nrm(t)))score+=t.length>=4?5:2;}if(score>=5&&(stripped.length<=1||stripped.every(t=>name.includes(nrm(t)))))scored.push([score,item]);}return scored.sort((a,b)=>b[0]-a[0]).slice(0,max).map(x=>x[1]);}
   function answerQuery(query){
     const q=query.toLowerCase().replace(/[’‘]/g,"'");
-    const g=targetGrade(q),r=regionFrom(q);
+    const gs=targetGrades(q),g=gs[0]??null,r=regionFrom(q);
     const isInterest=/\b(interest|interested|lead|leads|form|inquiry|inquiries|prospect|prospects)\b/i.test(q);
     const isHistory=/\b(historical|history|old|september|sep\b|tryout|prior|previous|team board|2025|frazierhoops|last year)\b/i.test(q);
     const isReturning=/\b(returning|return|former|2025|last year|frazierhoops)\b/i.test(q);
@@ -169,21 +177,21 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
     const messagesQuery=/\b(drafts?|messages?|outreach|text templates)\b/i.test(q)&&!(/\b(contact|number)\b/i.test(q)&&g!==null);
     const noSignupsMembers=DB.historical.filter(h=>!membershipNameSet().has(nrm(h.name)));
     const leadUnmatched=uniqueName(DB.interest.filter(x=>!x.membershipNameMatch));
-    const historicalFiltered=DB.historical.filter(h=>g==null||h.grade===g);
-    const membersFiltered=onlyGradeRegion(knownMembers(),g,r);
-    const leadFiltered=leadUnmatched.filter(x=>g==null||x.grade===g);
-    const baseContext=(g!==null?gName(g):'all grades')+(r?' · '+r:'');
+    const historicalFiltered=DB.historical.filter(h=>!gs.length||gs.includes(h.grade));
+    const membersFiltered=knownMembers().filter(p=>(!gs.length||gs.includes(p.grade))&&(!r||p.region===r));
+    const leadFiltered=leadUnmatched.filter(x=>!gs.length||gs.includes(x.grade));
+    const baseContext=(gs.length?gs.map(gName).join(' + '):'all grades')+(r?' · '+r:'');
     if(/\b(help|what can you|what information|sources|what data|coverage|how does this work)\b/i.test(q)){
       return answer('Your complete FBC search hub','Ask for players, grades, parent numbers, membership lists, interest leads, historical tryouts, previous team boards, returning players, duplicates, or outreach messages.',[
         {title:'Data available',cards:[],note:`${DB.members.length} GymDesk membership rows; ${DB.interest.length} interest forms; ${DB.historical.length} historical records; ${DB.returning.length} 2025 returning-player leads; ${DB.outreachDrafts.length} unsent outreach drafts.`}],
       'You are looking at source snapshots, not an active live GymDesk/Jotform connection. Nothing here proves a payment unless explicitly verified.');
     }
-    if(/\b(127|jersey number|tryout number|bib number)\b/.test(q)&&/\b(who|which|tryout|jersey)\b/.test(q))return answer('Tryout jersey numbers are not indexed','I can search named historical tryout records and team boards, but this snapshot does not have a verified jersey-number lookup. I will not guess the athlete.','', 'Ask for a player name or grade instead.');
+    if(/\b(127|jersey number|tryout number|bib number)\b/.test(q)&&/\b(who|which|tryout|jersey)\b/.test(q))return answer('Tryout jersey numbers are not indexed','I can search named historical tryout records and team boards, but this snapshot does not have a verified jersey-number lookup. I will not guess the athlete.',[], 'Ask for a player name or grade instead.');
     if(duplicateQuery){
       const dupRows=[];for(const set of [DB.members,DB.interest]){const hits={};for(const row of set){let k=nrm(row.name);(hits[k]??=[]).push(row);}for(const names of Object.values(hits))if(names.length>1)dupRows.push(...names.map(n=>set===DB.members?memberToCard(n):leadToCard(n)));}
       if(/\b(missing phone|missing number|no numbers)\b/.test(q))return answer('Missing contact details','These records have no verified parent/guardian contact number in the source.',[
         {title:'GymDesk membership records without a verified guardian number',cards:membersFiltered.filter(m=>!(m.parentContacts||[]).some(c=>c.phone&&/parent|guardian/i.test(c.relationship))).map(memberToCard)},
-        {title:'Interest forms without a contact number',cards:DB.interest.filter(x=>g==null||x.grade===g).filter(x=>!x.parentPhone).map(leadToCard)}],
+        {title:'Interest forms without a contact number',cards:DB.interest.filter(x=>!gs.length||gs.includes(x.grade)).filter(x=>!x.parentPhone).map(leadToCard)}],
         'GymDesk member/account phone can exist without being a verified parent number.');
       return answer('Possible duplicate records','Names that repeat within the same source. These are review flags, not necessarily mistaken accounts.',[{title:'Duplicates to review',cards:dupRows}], 'Two same-name entries may represent legitimate separate records.');
     }
@@ -195,7 +203,8 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
       if(isHistory && !isInterest){sections.push({title:'Historical names with no November GymDesk name match',cards:h.map(histToCard)});}
       else if(isInterest && !isHistory){sections.push({title:'Interest names with no November GymDesk name match',cards:l.map(leadToCard)});}
       else {sections.push({title:'Interest leads with no November GymDesk name match',cards:l.map(leadToCard)});if(!r)sections.push({title:'Historical roster names with no November GymDesk name match',cards:h.map(histToCard)});}
-      return answer('Who still needs a signup follow-up?',`For ${baseContext}: ${l.length} unmatched unique interest names${r?' (interest form did not record region)':''}${!r?', and '+h.length+' historical records without a November membership name match':''}.`,sections,'A missing name match does NOT prove someone failed to sign up, and a deposit membership label does NOT prove payment. Verify current registrations and contact consent before reaching out.');
+      const summary=(isHistory&&!isInterest)?`${h.length} historical names without a November membership name match`:(isInterest&&!isHistory)?`${l.length} unmatched unique interest names`:`${l.length} unmatched unique interest names${r?'':', and '+h.length+' historical records without a November membership name match'}`;
+      return answer('Who still needs a signup follow-up?',`For ${baseContext}: ${summary}.${r?' Interest form entries lack region information.':''}`,sections,'A missing name match does NOT prove someone failed to sign up, and a deposit membership label does NOT prove payment. Verify current registrations and contact consent before reaching out.');
     }
     if(isReturning){
       const arr=DB.returning;
@@ -204,8 +213,14 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
       return answer('Returning FrazierHoops players',`${arr.length} players appear in the prior-season outreach review. Messages are drafts, not proof they were sent.`,[{title:'2025 returning-player list',cards:arr.map(returningToCard)}], 'Phone verification and parent consent notes are shown on each record.');
     }
     if(messagesQuery && !(/\b(how many|count)\b/.test(q))){
-      const ds=DB.outreachDrafts.filter(x=>g==null||x.grade===g);
-      return answer('Unsent parent outreach drafts',`${ds.length} personalized drafts available ${g?`for ${gName(g)}`:'across the file'}. Each one can be copied — no messages have been sent by this site.`,[{title:'Drafts from Nov 5',cards:ds.map(draftToCard)}], 'Check contact consent and current enrollment before sending.');
+      const ds=DB.outreachDrafts.filter(x=>!gs.length||gs.includes(x.grade));
+      return answer('Unsent parent outreach drafts',`${ds.length} personalized drafts available ${gs.length?`for ${baseContext}`:'across the file'}. Each one can be copied — no messages have been sent by this site.`,[{title:'Drafts from Nov 5',cards:ds.map(draftToCard)}], 'Check contact consent and current enrollment before sending.');
+    }
+    if(/\b(unpaid|haven't paid|hasn't paid|not paid|who paid|paid|payment|payments|balances?|owed|owes)\b/.test(q)){
+      return answer('Payment verification is not in this export',`I can locate ${membersFiltered.length} membership-labeled records for ${baseContext}, but this snapshot does not establish who has successfully paid.`,[{title:'Membership-labeled records · payment unverified',cards:membersFiltered.map(memberToCard)}],'The word "Deposit" in GymDesk is a membership label. To answer paid/unpaid accurately, a verified payment export or transaction report is required.');
+    }
+    if(/\b(reply|replied|replies|responded|response|responses|answered)\b/.test(q)&&/\b(text|texts|message|messages|sms|parents?|outreach)\b/.test(q)){
+      return answer('Replies are not included in these source files',`I have ${DB.outreachDrafts.length} personalized message drafts, but not the incoming SMS replies or a reliable sent-status history.`,[{title:'Unsent message drafts',cards:DB.outreachDrafts.filter(x=>!gs.length||gs.includes(x.grade)).map(draftToCard)}],'Drafts are not proof that anyone was contacted. You would need your message response export to track actual replies.');
     }
     // Named athletes lookups. A full name match should beat any generic category search.
     const pool=[...DB.members.map(memberToCard),...DB.interest.map(leadToCard),...DB.historical.map(histToCard),...DB.returning.map(returningToCard)];
@@ -216,7 +231,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
       return answer('Player lookup',`Found ${nameMatches.length} matching source records. Repeated entries are shown separately so you can compare the source and date.`,[{title:'Search results',cards:nameMatches}], 'The same name may appear in multiple sources. Newer GymDesk memberships are distinct from older tryout or registration records.');
     }
     if(countQuery){
-      const membersG=membersFiltered;const leads=DB.interest.filter(x=>g==null||x.grade===g);
+      const membersG=membersFiltered;const leads=DB.interest.filter(x=>!gs.length||gs.includes(x.grade));
       const master=isHistory?historicalFiltered:DB.historical;
       if(g!==null||r){
         return answer('Numbers by grade / region',`${membersG.length} GymDesk membership rows for ${baseContext}. ${r?'The interest form has no region, so interest records below are counted across all regions. ':''} There are ${leads.length} interest form rows in the requested grade, and ${historicalFiltered.length} records in the Sep master for that grade.`,[
@@ -231,11 +246,11 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
         'Do not add the totals: an athlete can appear in multiple source files, and some rows duplicate. Last updated from source snapshots on Nov 16.');
     }
     if(isInterest){
-      const leads=DB.interest.filter(x=>g==null||x.grade===g);
-      return answer('Your AAU interest list',`${leads.length} interest form responses ${g?'for '+gName(g):'across all grades'}. These are prospective players, NOT paid registrations.`,[{title:'AAU interest form responses',cards:leads.map(leadToCard)}], 'The interest form does not record Cleveland/Pittsburgh region.');
+      const leads=DB.interest.filter(x=>!gs.length||gs.includes(x.grade));
+      return answer('Your AAU interest list',`${leads.length} interest form responses ${gs.length?'for '+baseContext:'across all grades'}. These are prospective players, NOT paid registrations.`,[{title:'AAU interest form responses',cards:leads.map(leadToCard)}], 'The interest form does not record Cleveland/Pittsburgh region.');
     }
     if(isHistory){
-      return answer('Historical players and tryouts',`${historicalFiltered.length} September master records ${g?'in '+gName(g):'across all grades'}.`,[{title:'2026 historical roster',cards:historicalFiltered.map(histToCard)}], 'Proposed team placements and September registration statuses are historical, not current confirmed teams.');
+      return answer('Historical players and tryouts',`${historicalFiltered.length} September master records ${gs.length?'in '+baseContext:'across all grades'}.`,[{title:'2026 historical roster',cards:historicalFiltered.map(histToCard)}], 'Proposed team placements and September registration statuses are historical, not current confirmed teams.');
     }
     if(/\b(team|teams|roster|rosters|15u|16u|17u|14u)\b/.test(q)){
       return answer('Your grade-based roster view',`I found ${membersFiltered.length} membership-listed records for ${baseContext}. Players are grouped by membership grade, NOT assigned to confirmed competition teams.`,[{title:'GymDesk grade grouping',cards:membersFiltered.map(memberToCard)}], 'Check current team assignments and graduation eligibility separately. 11th-graders are not automatically excluded.');
